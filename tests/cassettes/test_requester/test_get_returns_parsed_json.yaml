@@ -8,8 +8,6 @@ interactions:
       - gzip, deflate
       Connection:
       - keep-alive
-      User-Agent:
-      - luma-sdk/0.1.0
     method: GET
     uri: https://jsonplaceholder.typicode.com/posts/1
   response:

@@ -1,6 +1,4 @@
-class LumaException(Exception):
-    """Base exception for all SDK errors."""
-
+class ApiError(Exception):
     def __init__(self, status: int, data: object = None) -> None:
         self.status = status
         self.data = data
@@ -10,13 +8,13 @@ class LumaException(Exception):
         return f"{self.__class__.__name__}({self.status}, {self.data!r})"
 
 
-class UnknownObjectException(LumaException):
-    """Raised on 404 — resource does not exist."""
+class NotFoundError(ApiError):
+    """Raised on 404."""
 
 
-class BadRequestException(LumaException):
+class ClientError(ApiError):
     """Raised on 4xx errors other than 404."""
 
 
-class ServerErrorException(LumaException):
+class ServerError(ApiError):
     """Raised on 5xx errors."""

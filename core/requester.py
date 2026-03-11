@@ -1,33 +1,20 @@
 import requests
 
-from core.exceptions import (
-    BadRequestException,
-    LumaException,
-    ServerErrorException,
-    UnknownObjectException,
-)
+from core.exceptions import ApiError, ClientError, NotFoundError, ServerError
 
 
 class Requester:
-    DEFAULT_BASE_URL = "https://jsonplaceholder.typicode.com"
     DEFAULT_TIMEOUT = 10
-    DEFAULT_USER_AGENT = "luma-sdk/0.1.0"
 
     def __init__(
         self,
-        base_url: str = DEFAULT_BASE_URL,
+        base_url: str,
         timeout: int = DEFAULT_TIMEOUT,
-        user_agent: str = DEFAULT_USER_AGENT,
     ) -> None:
         self._base_url = base_url.rstrip("/")
         self._timeout = timeout
         self._session = requests.Session()
-        self._session.headers.update(
-            {
-                "User-Agent": user_agent,
-                "Accept": "application/json",
-            }
-        )
+        self._session.headers.update({"Accept": "application/json"})
 
     def request_json(
         self,
@@ -35,7 +22,6 @@ class Requester:
         path: str,
         parameters: dict | None = None,
     ) -> tuple[int, dict | list]:
-        """Make an HTTP request. Returns (status_code, parsed_body)."""
         url = f"{self._base_url}{path}"
         response = self._session.request(
             method=verb,
@@ -55,7 +41,6 @@ class Requester:
         path: str,
         parameters: dict | None = None,
     ) -> dict | list:
-        """Like request_json but raises LumaException on non-2xx responses."""
         status, data = self.request_json(verb, path, parameters)
         self._check(status, data)
         return data
@@ -63,8 +48,8 @@ class Requester:
     @staticmethod
     def _check(status: int, data: object) -> None:
         if status == 404:
-            raise UnknownObjectException(status, data)
+            raise NotFoundError(status, data)
         if 400 <= status < 500:
-            raise BadRequestException(status, data)
+            raise ClientError(status, data)
         if status >= 500:
-            raise ServerErrorException(status, data)
+            raise ServerError(status, data)

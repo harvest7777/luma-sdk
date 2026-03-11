@@ -1,3 +1,3 @@
-from core.client import Luma
+from core.client import Client
 
-__all__ = ["Luma"]
+__all__ = ["Client"]

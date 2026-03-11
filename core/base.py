@@ -8,12 +8,10 @@ if TYPE_CHECKING:
 
 class _NotSetType:
     """
-    Sentinel singleton. Distinguishes "attribute not yet fetched" from None.
+    Sentinel singleton. Distinguishes "not yet fetched" from None.
 
-    Every resource attribute starts as NotSet. The first property access checks
-    for NotSet and triggers a lazy GET before returning the value. This lets
-    resources be created cheaply from partial data (e.g. list responses) and
-    only fetch their full representation on demand.
+    Resource attributes start as NotSet. The first property access triggers
+    a lazy GET if any attribute is still NotSet.
     """
 
     _instance: "_NotSetType | None" = None
@@ -33,20 +31,20 @@ class _NotSetType:
 NotSet = _NotSetType()
 
 
-class GithubObject:
+class Resource:
     """
-    Base class for all SDK resource objects. Mirrors PyGithub's GithubObject.
+    Base class for all API resource objects.
 
     Subclasses must implement:
-      _initAttributes()   — set every instance attribute to NotSet
-      _useAttributes()    — populate attributes from a raw API response dict
+      _init_attributes()  — set every attribute to NotSet
+      _use_attributes()   — populate attributes from a raw API response dict
 
-    Lifecycle:
-      1. __init__ stores the requester + URL, calls _initAttributes()
-      2. If `attributes` is passed (fast path from list responses), _useAttributes()
-         is called immediately and no network call is needed
-      3. On first @property access of a NotSet attr, _completeIfNotSet() fires
-         _completeIfNeeded() which GETs self._url and calls _useAttributes()
+    To add a resource:
+      1. Subclass Resource
+      2. Set attributes to NotSet in _init_attributes()
+      3. Populate from the response dict in _use_attributes()
+      4. Expose each attribute as a @property that calls _complete_if_not_set()
+      5. Add child-resource methods (e.g. get_comments()) that call self._requester
     """
 
     def __init__(
@@ -58,23 +56,23 @@ class GithubObject:
         self._requester = requester
         self._url = url
         self._completed = False
-        self._initAttributes()
+        self._init_attributes()
         if attributes is not None:
-            self._useAttributes(attributes)
+            self._use_attributes(attributes)
             self._completed = True
 
-    def _initAttributes(self) -> None:
+    def _init_attributes(self) -> None:
         raise NotImplementedError
 
-    def _useAttributes(self, attributes: dict) -> None:
+    def _use_attributes(self, attributes: dict) -> None:
         raise NotImplementedError
 
-    def _completeIfNotSet(self, value: Any) -> None:
+    def _complete_if_not_set(self, value: Any) -> None:
         if value is NotSet:
-            self._completeIfNeeded()
+            self._complete_if_needed()
 
-    def _completeIfNeeded(self) -> None:
+    def _complete_if_needed(self) -> None:
         if not self._completed:
             data = self._requester.request_json_and_check("GET", self._url)
-            self._useAttributes(data)
+            self._use_attributes(data)
             self._completed = True
