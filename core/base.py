@@ -35,16 +35,13 @@ class Resource:
     """
     Base class for all API resource objects.
 
+    Handles one thing: lazy loading. Attributes start as NotSet and are fetched
+    on first access. HTTP verb methods (get, delete, list) belong on subclasses
+    or on Client — not here — because not every resource supports every verb.
+
     Subclasses must implement:
       _init_attributes()  — set every attribute to NotSet
       _use_attributes()   — populate attributes from a raw API response dict
-
-    To add a resource:
-      1. Subclass Resource
-      2. Set attributes to NotSet in _init_attributes()
-      3. Populate from the response dict in _use_attributes()
-      4. Expose each attribute as a @property that calls _complete_if_not_set()
-      5. Add child-resource methods (e.g. get_comments()) that call self._requester
     """
 
     def __init__(
