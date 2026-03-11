@@ -23,6 +23,5 @@ def vcr_cassette_dir(request):
 @pytest.fixture(scope="session")
 def vcr_config():
     return {
-        "record_mode": "none",
         "filter_headers": ["authorization"],
     }
