@@ -82,6 +82,6 @@ The cassette for this test returns a 404 — no need to find a real endpoint tha
 
 ## Configuration
 
-`vcr_config` and `vcr_cassette_dir` are defined in `tests/conftest.py`. The default `record_mode` is `none`, which prevents any accidental live API calls in CI.
+`vcr_config` and `vcr_cassette_dir` are defined in `tests/conftest.py`. Record mode is controlled entirely by the `--record-mode` CLI flag — omitting it defaults to replay-only, so CI never makes live API calls.
 
 Authorization headers are automatically stripped from recorded cassettes via `filter_headers`.
