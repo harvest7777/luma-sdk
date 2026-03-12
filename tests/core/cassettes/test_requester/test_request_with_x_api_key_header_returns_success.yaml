@@ -1,0 +1,77 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.5
+      x-api-key:
+      - test-key
+    method: GET
+    uri: https://jsonplaceholder.typicode.com/posts/10
+  response:
+    body:
+      string: "{\n  \"userId\": 1,\n  \"id\": 10,\n  \"title\": \"optio molestias
+        id quia eum\",\n  \"body\": \"quo et expedita modi cum officia vel magni\\ndoloribus
+        qui repudiandae\\nvero nisi sit\\nquos veniam quod sed accusamus veritatis
+        error\"\n}"
+    headers:
+      Age:
+      - '16533'
+      CF-RAY:
+      - 9db5616fb9acf7b5-LAX
+      Cache-Control:
+      - max-age=43200
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Thu, 12 Mar 2026 19:59:39 GMT
+      Server:
+      - cloudflare
+      Transfer-Encoding:
+      - chunked
+      access-control-allow-credentials:
+      - 'true'
+      alt-svc:
+      - h3=":443"; ma=86400
+      cf-cache-status:
+      - HIT
+      etag:
+      - W/"d9-iWGkhNuCVU3QUpWXcSkr72qX524"
+      expires:
+      - '-1'
+      nel:
+      - '{"report_to":"heroku-nel","response_headers":["Via"],"max_age":3600,"success_fraction":0.01,"failure_fraction":0.1}'
+      pragma:
+      - no-cache
+      report-to:
+      - '{"group":"heroku-nel","endpoints":[{"url":"https://nel.heroku.com/reports?s=fw6o2Yrcidr%2BA09KysumBbeEZb0JhC9nndcDiCoRWy0%3D\u0026sid=e11707d5-02a7-43ef-b45e-2cf4d2036f7d\u0026ts=1762592028"}],"max_age":3600}'
+      reporting-endpoints:
+      - heroku-nel="https://nel.heroku.com/reports?s=fw6o2Yrcidr%2BA09KysumBbeEZb0JhC9nndcDiCoRWy0%3D&sid=e11707d5-02a7-43ef-b45e-2cf4d2036f7d&ts=1762592028"
+      vary:
+      - Origin, Accept-Encoding
+      via:
+      - 2.0 heroku-router
+      x-content-type-options:
+      - nosniff
+      x-powered-by:
+      - Express
+      x-ratelimit-limit:
+      - '1000'
+      x-ratelimit-remaining:
+      - '999'
+      x-ratelimit-reset:
+      - '1762592080'
+    status:
+      code: 200
+      message: OK
+version: 1
