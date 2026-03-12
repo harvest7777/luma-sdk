@@ -11,5 +11,5 @@ class LumaClient:
         events = client.events.list()
     """
 
-    def __init__(self, base_url: str, timeout: int = Requester.DEFAULT_TIMEOUT) -> None:
-        self._requester = Requester(base_url=base_url, timeout=timeout)
+    def __init__(self, base_url: str, api_key:str, timeout: int = Requester.DEFAULT_TIMEOUT) -> None:
+        self._requester = Requester(base_url=base_url, timeout=timeout, headers={"x-luma-api-key": api_key})
