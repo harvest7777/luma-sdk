@@ -1,20 +1,16 @@
 # Tests
 
-Uses [pytest-recording](https://github.com/kiwicom/pytest-recording) (VCR) to mock HTTP responses — no network required by default.
-
-| Command                      | Behavior                           |
-| ---------------------------- | ---------------------------------- |
-| `pytest`                     | Replay cassettes (no network)      |
-| `pytest --record-mode=all`   | Real HTTP + re-record interactions |
-| `pytest --disable-recording` | Real HTTP, no recording            |
-
-## Regenerating Cassettes
-
-To fully regenerate cassette files, delete them first:
-
-```bash
-rm -rf tests/cassettes
-pytest --record-mode=all
+```
+tests/
+  unit/        # logic only, no HTTP
+  integration/ # real API calls, owns cassettes
 ```
 
-This guarantees fresh recordings.
+Uses [pytest-recording](https://github.com/kiwicom/pytest-recording) (VCR) to mock HTTP in integration tests — no network required by default.
+
+| Command                                           | Behavior                           |
+| ------------------------------------------------- | ---------------------------------- |
+| `pytest tests/unit`                               | Logic tests, no network            |
+| `pytest tests/integration`                        | Replay cassettes (no network)      |
+| `pytest tests/integration --record-mode=all`      | Real HTTP + re-record cassettes    |
+| `pytest tests/integration --disable-recording`    | Real HTTP, no recording            |
