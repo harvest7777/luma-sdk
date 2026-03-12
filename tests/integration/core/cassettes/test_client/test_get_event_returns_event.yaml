@@ -1,0 +1,38 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.5
+      x-luma-api-key:
+      - XXXXXXXXX REDACTED XXXXXXXXX
+    method: GET
+    uri: https://public-api.luma.com/v1/event/get?id=evt-OlQU8n0zzhDZc7A
+  response:
+    body:
+      string: '{"event":{"id":"evt-OlQU8n0zzhDZc7A","calendar_id":"cal-G6RucUfw1nBs8qT","user_id":"usr-Tw1bycXxO8mdP8w","created_at":"2024-08-11T23:05:21.577Z","cover_url":"https://images.lumacdn.com/event-covers/x7/d4b5408a-fa16-457a-a7ca-dbc462b55d2f","name":"\ud83c\udf89
+        AI-Agents Networking + Launch Party! Fetch.ai Innovation Lab","description":"We
+        warmly welcome you to the AI-Agents Networking + Launch Party of Fetch.ai Innovation
+        Lab!","description_md":"# We warmly welcome you","start_at":"2024-08-24T02:00:00.000Z","duration_interval":"P0Y0M0DT3H0M0S","end_at":"2024-08-24T05:00:00.000Z","geo_address_json":{"address":"Zo
+        House","city":"San Francisco","region":"California","country":null,"city_state":"San
+        Francisco, California","full_address":"Zo House, 300 4th St, San Francisco,
+        CA 94107, USA","google_maps_place_id":"ChIJ-38_GfWBhYARuvLE-oxf9yI","apple_maps_place_id":null,"description":""},"geo_latitude":"37.78176","geo_longitude":"-122.401198","url":"https://luma.com/7mlrt921","registration_questions":[],"timezone":"America/Los_Angeles","visibility":"public","meeting_url":null,"feedback_email":{"enabled":false},"zoom_meeting_url":null,"api_id":"evt-OlQU8n0zzhDZc7A","calendar_api_id":"cal-G6RucUfw1nBs8qT","user_api_id":"usr-Tw1bycXxO8mdP8w","tags":[]},"hosts":[{"api_id":"usr-Tw1bycXxO8mdP8w","email":"events@fetch.ai","name":"Fetch.ai
+        Innovation Lab","first_name":"events","last_name":"fetch","avatar_url":"https://images.lumacdn.com/avatars/pg/0913cb66-4959-4288-9f45-32c2b59d8e69","id":"usr-Tw1bycXxO8mdP8w"},{"api_id":"usr-cDE6NZGKuGA44AP","email":"its.young.entrepreneurs.hub@gmail.com","name":"Global
+        Entrepreneurs Hub","first_name":"Global Entrepreneurs Hub","last_name":null,"avatar_url":"https://images.lumacdn.com/avatars/53/7b8943ac-2e60-44d9-99c5-9b8a814fda7c","id":"usr-cDE6NZGKuGA44AP"},{"api_id":"usr-oUTIxE0c8yIomEz","email":"sfo@zo.xyz","name":"Zo
+        House SF","first_name":"Zo San","last_name":"Francisco","avatar_url":"https://images.lumacdn.com/avatars/et/4ce4fb84-b66e-47d8-bbf2-7f5a31d8c5a9","id":"usr-oUTIxE0c8yIomEz"},{"api_id":"usr-AxYZzSPnd5lUhuW","email":"aiifyevents@gmail.com","name":"Aiify.io
+        Events","first_name":"Aiify","last_name":"Events","avatar_url":"https://images.lumacdn.com/avatars/fd/1584d279-999e-4666-a546-70b8ed07fd36","id":"usr-AxYZzSPnd5lUhuW"},{"api_id":"usr-M1c1hU1DRUGGIMA","email":"echtman@gmail.com","name":"Steven
+        Echtman","first_name":"Steven","last_name":"Echtman","avatar_url":"https://images.lumacdn.com/avatars/01/012276c2-2203-4951-8310-aa358ae54046","id":"usr-M1c1hU1DRUGGIMA"},{"api_id":"usr-Xo3bu45LX98TYLP","email":"hello@joinglocommunity.com","name":"Global
+        Entrepreneurs Hub (GLO)","first_name":"","last_name":"","avatar_url":"https://images.lumacdn.com/avatars/dw/70fe449c-2226-4576-b962-3d040ebd5686.png","id":"usr-Xo3bu45LX98TYLP"}]}'
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+    status:
+      code: 200
+      message: OK
+version: 1

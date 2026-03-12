@@ -14,12 +14,12 @@ class LumaClient:
         event.get_tickets()          # returns PaginatedList[Ticket]
     """
 
-    _BASE_URL = "https://api.lu.ma/public/v1"
+    _BASE_URL = "https://public-api.luma.com/v1"
 
     def __init__(self, api_key: str, timeout: int = Requester.DEFAULT_TIMEOUT) -> None:
         self._requester = Requester(base_url=self._BASE_URL, timeout=timeout, headers={"x-luma-api-key": api_key})
 
     # These all MUST be top level resources. We are following a RESTful ownership pattern
-    def get_event(self, event_id):
-        data = self._requester.get(f"/events/{event_id}")
+    def get_event(self, event_id: str) -> Event:
+        data = self._requester.get("/event/get", parameters={"id": event_id})
         return Event(data, self._requester)
