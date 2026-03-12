@@ -11,10 +11,20 @@ class Requester:
         base_url: str,
         timeout: int = DEFAULT_TIMEOUT,
     ) -> None:
-        self._base_url = base_url.rstrip("/")
+        base_url = base_url.strip().rstrip("/")
+        if not base_url.startswith("https://"):
+            raise ValueError(f"base_url must start with 'https://', got: {base_url!r}")
+        self._base_url = base_url
         self._timeout = timeout
         self._session = requests.Session()
         self._session.headers.update({"Accept": "application/json"})
+
+    # Combines base_url and a resource path into a full request URL.
+    def _construct_url(self, path: str) -> str:
+        path = path.strip()
+        if not path.startswith("/"):
+            path = f"/{path}"
+        return f"{self._base_url}{path}"
 
     def _request_json(
         self,
@@ -22,7 +32,7 @@ class Requester:
         path: str,
         parameters: dict | None = None,
     ) -> tuple[int, dict | list]:
-        url = f"{self._base_url}{path}"
+        url = self._construct_url(path)
         response = self._session.request(
             method=verb,
             url=url,

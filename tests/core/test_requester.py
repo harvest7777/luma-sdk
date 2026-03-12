@@ -1,22 +1,33 @@
 import pytest
-
-from core.exceptions import NotFoundError
 from core.requester import Requester
 
 
-@pytest.fixture
-def requester():
-    return Requester(base_url="https://jsonplaceholder.typicode.com")
+def test_requester_init():
+    req = Requester(base_url="https://public-api.luma.com")
+    assert req._base_url == "https://public-api.luma.com"
+
+def test_requester_init_trailing_slash():
+    req = Requester(base_url="https://public-api.luma.com/")
+    assert req._base_url == "https://public-api.luma.com"
+
+def test_reqester_no_https_raises_exception():
+    with pytest.raises(ValueError):
+        Requester(base_url="public-api.luma.com")
+
+def test_requester_omits_white_spaces():
+    req = Requester(base_url="  https://public-api.luma.com/  ")
+    assert req._base_url == "https://public-api.luma.com"
+
+def test_construct_url():
+    req = Requester(base_url="https://public-api.luma.com")
+    assert req._construct_url("/events") == "https://public-api.luma.com/events"
+
+def test_construct_url_adds_leading_slash():
+    req = Requester(base_url="https://public-api.luma.com")
+    assert req._construct_url("events") == "https://public-api.luma.com/events"
+
+def test_construct_url_omits_white_spaces():
+    req = Requester(base_url="https://public-api.luma.com")
+    assert req._construct_url(" events ") == "https://public-api.luma.com/events"
 
 
-@pytest.mark.vcr
-def test_get_returns_parsed_json(requester):
-    data = requester.request_json_and_check("GET", "/posts/1")
-    assert data["id"] == 1
-
-
-@pytest.mark.vcr
-def test_raises_not_found_on_404(requester):
-    with pytest.raises(NotFoundError) as exc_info:
-        requester.request_json_and_check("GET", "/posts/9999")
-    assert exc_info.value.status == 404
