@@ -1,3 +1,4 @@
+from core.models.event import Event
 from core.requester import Requester
 
 
@@ -17,3 +18,8 @@ class LumaClient:
 
     def __init__(self, api_key: str, timeout: int = Requester.DEFAULT_TIMEOUT) -> None:
         self._requester = Requester(base_url=self._BASE_URL, timeout=timeout, headers={"x-luma-api-key": api_key})
+
+    # These all MUST be top level resources. We are following a RESTful ownership pattern
+    def get_event(self, event_id):
+        data = self._requester.get(f"/events/{event_id}")
+        return Event(data, self._requester)
