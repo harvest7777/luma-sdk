@@ -54,6 +54,11 @@ class Requester:
         path: str,
         parameters: dict | None = None,
     ) -> dict | list:
+        """
+        :param verb: HTTP method, e.g. "GET", "POST".
+        :param path: Resource path, e.g. "/events/evt-123". Leading slash optional.
+        :param parameters: Query string parameters, e.g. {"page": 1}.
+        """
         status, data = self._request_json(verb, path, parameters)
         self._check(status, data)
         return data
