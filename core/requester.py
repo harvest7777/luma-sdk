@@ -10,6 +10,7 @@ class Requester:
         self,
         base_url: str,
         timeout: int = DEFAULT_TIMEOUT,
+        headers: dict | None = None,
     ) -> None:
         base_url = base_url.strip().rstrip("/")
         if not base_url.startswith("https://"):
@@ -18,6 +19,8 @@ class Requester:
         self._timeout = timeout
         self._session = requests.Session()
         self._session.headers.update({"Accept": "application/json"})
+        if headers:
+            self._session.headers.update(headers)
 
     # Combines base_url and a resource path into a full request URL.
     def _construct_url(self, path: str) -> str:

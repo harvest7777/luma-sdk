@@ -30,4 +30,15 @@ def test_construct_url_omits_white_spaces():
     req = Requester(base_url="https://public-api.luma.com")
     assert req._construct_url(" events ") == "https://public-api.luma.com/events"
 
+def test_custom_headers_update_session():
+    req = Requester(
+        base_url="https://public-api.luma.com",
+        headers={"x-luma-api-key": "test-key"},
+    )
+    assert req._session.headers["x-luma-api-key"] == "test-key"
+
+def test_no_custom_headers_keeps_defaults():
+    req = Requester(base_url="https://public-api.luma.com")
+    assert req._session.headers["Accept"] == "application/json"
+    assert "x-luma-api-key" not in req._session.headers
 
