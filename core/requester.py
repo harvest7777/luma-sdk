@@ -16,7 +16,7 @@ class Requester:
         self._session = requests.Session()
         self._session.headers.update({"Accept": "application/json"})
 
-    def request_json(
+    def _request_json(
         self,
         verb: str,
         path: str,
@@ -41,7 +41,7 @@ class Requester:
         path: str,
         parameters: dict | None = None,
     ) -> dict | list:
-        status, data = self.request_json(verb, path, parameters)
+        status, data = self._request_json(verb, path, parameters)
         self._check(status, data)
         return data
 
