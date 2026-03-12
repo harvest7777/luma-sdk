@@ -48,17 +48,19 @@ class Requester:
             data = {}
         return response.status_code, data
 
-    def request_json_and_check(
+    def get(self, path: str, parameters: dict | None = None) -> dict | list:
+        """
+        :param path: Resource path, e.g. "/event/get". Leading slash optional.
+        :param parameters: Query string parameters, e.g. {"id": "evt-123"}.
+        """
+        return self._request_json_and_check("GET", path, parameters)
+
+    def _request_json_and_check(
         self,
         verb: str,
         path: str,
         parameters: dict | None = None,
     ) -> dict | list:
-        """
-        :param verb: HTTP method, e.g. "GET", "POST".
-        :param path: Resource path, e.g. "/events/evt-123". Leading slash optional.
-        :param parameters: Query string parameters, e.g. {"page": 1}.
-        """
         status, data = self._request_json(verb, path, parameters)
         self._check(status, data)
         return data
