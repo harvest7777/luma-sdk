@@ -7,9 +7,13 @@ class LumaClient:
 
     This is the main interface for the developer.
     Used like:
-        client = LumaClient()
-        events = client.events.list()
+        client = LumaClient(api_key=....)
+        client.get_events()          # returns PaginatedList[Event]
+        client.get_event(event_id)   # returns Event
+        event.get_tickets()          # returns PaginatedList[Ticket]
     """
 
-    def __init__(self, base_url: str, api_key:str, timeout: int = Requester.DEFAULT_TIMEOUT) -> None:
-        self._requester = Requester(base_url=base_url, timeout=timeout, headers={"x-luma-api-key": api_key})
+    _BASE_URL = "https://api.lu.ma/public/v1"
+
+    def __init__(self, api_key: str, timeout: int = Requester.DEFAULT_TIMEOUT) -> None:
+        self._requester = Requester(base_url=self._BASE_URL, timeout=timeout, headers={"x-luma-api-key": api_key})
