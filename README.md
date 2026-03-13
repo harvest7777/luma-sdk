@@ -35,6 +35,49 @@ print(guest.user_email)
 
 ---
 
+## Without the SDK
+
+The same script without the SDK, using raw HTTP calls:
+
+```python
+import os
+import requests
+from datetime import datetime, timezone
+from dotenv import load_dotenv
+
+load_dotenv()
+
+headers = {"x-luma-api-key": os.getenv("LUMA_API_KEY"), "Accept": "application/json"}
+now = datetime.now(timezone.utc)
+upcoming = []
+
+cursor = None
+while True:
+    params = {"pagination_cursor": cursor} if cursor else {}
+    response = requests.get("https://public-api.luma.com/v1/calendar/list-events", headers=headers, params=params)
+    response.raise_for_status()
+    data = response.json()
+
+    for entry in data["entries"]:
+        event = entry["event"]
+        start_at = datetime.fromisoformat(event["start_at"].replace("Z", "+00:00"))
+        if start_at >= now:
+            upcoming.append(event)
+
+    if not data["has_more"]:
+        break
+    cursor = data["next_cursor"]
+
+print(f"Fetch.ai upcoming events ({len(upcoming)} total):\n")
+for event in upcoming:
+    start_at = datetime.fromisoformat(event["start_at"].replace("Z", "+00:00"))
+    print(f"  {start_at.strftime('%Y-%m-%d')}  {event['name']}")
+    print(f"           {event['url']}")
+    print()
+```
+
+---
+
 ## `luma_sdk/`
 
 The SDK package. Entry point is `LumaClient`.
