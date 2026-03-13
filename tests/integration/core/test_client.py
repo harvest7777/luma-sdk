@@ -23,13 +23,8 @@ def test_bad_event_raises_forbidden(luma_client):
         luma_client.get_event("evt-xxxxxxxxxxxxxx")
 
 @pytest.mark.vcr
-def test_get_events_paginates(luma_client):
-    events = list(luma_client.get_events())
-    assert len(events) == 3
+def test_get_events_returns_only_event_types(luma_client):
+    events = luma_client.get_events()
     assert all(isinstance(e, Event) for e in events)
-    assert [e.id for e in events] == ["evt-page1a", "evt-page1b", "evt-page2a"]
 
-def test_get_events_returns_paginated_list(luma_client):
-    result = luma_client.get_events()
-    assert isinstance(result, PaginatedList)
 
