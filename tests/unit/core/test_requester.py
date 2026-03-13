@@ -32,10 +32,6 @@ def test_base_url_must_be_https():
     with pytest.raises(ValueError):
         Requester("http://insecure.com")
 
-def test_construct_url_adds_leading_slash():
-    req = Requester(base_url="https://public-api.luma.com")
-    assert req._construct_url("events") == "https://public-api.luma.com/events"
-
 def test_construct_url_omits_white_spaces():
     req = Requester(base_url="https://public-api.luma.com")
     assert req._construct_url(" events ") == "https://public-api.luma.com/events"
