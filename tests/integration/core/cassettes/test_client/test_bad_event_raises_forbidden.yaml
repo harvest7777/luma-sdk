@@ -1,0 +1,46 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.5
+      x-luma-api-key:
+      - XXXXXXXXX REDACTED XXXXXXXXX
+    method: GET
+    uri: https://public-api.luma.com/v1/event/get?id=evt-xxxxxxxxxxxxxx
+  response:
+    body:
+      string: "{\"message\":\"You don\u2019t have access to this event.\",\"code\":null}"
+    headers:
+      CF-RAY:
+      - 9db72075599dc277-LAX
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 13 Mar 2026 01:04:49 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - __cf_bm=RT11B999Eye0YuhMbIvt2O2_0oOj.BmRlHfOESkelUA-1773363889-1.0.1.1-HXKNTxejyhOsEFPJ3tzg1fh2OqLAf68Bq20b7CmbEGgRVId_uloloWfto_wNblCmgdqA2Vum7XhQt.vzr2mm8GWKYCbKQ7t5gL0ppwpj8bg;
+        path=/; expires=Fri, 13-Mar-26 01:34:49 GMT; domain=.luma.com; HttpOnly; Secure;
+        SameSite=None
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      vary:
+      - Origin
+    status:
+      code: 403
+      message: Forbidden
+version: 1

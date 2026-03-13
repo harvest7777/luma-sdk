@@ -1,0 +1,52 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.5
+      x-luma-api-key:
+      - XXXXXXXXX REDACTED XXXXXXXXX
+    method: GET
+    uri: https://public-api.luma.com/v1/event/get?id=evt-eJuh3dgMEiJ2MUj
+  response:
+    body:
+      string: '{"event":{"id":"evt-eJuh3dgMEiJ2MUj","calendar_id":"cal-G6RucUfw1nBs8qT","user_id":"usr-Tw1bycXxO8mdP8w","created_at":"2024-08-11T23:16:21.193Z","cover_url":"https://images.lumacdn.com/event-covers/ep/445730cd-01e8-42ab-93cf-4428869f0228","name":"AI
+        Agents for Entrepreneurs","description":"","description_md":"","start_at":"2024-09-04T00:00:00.000Z","duration_interval":"P0Y0M0DT3H0M0S","end_at":"2024-09-04T03:00:00.000Z","geo_address_json":{"address":"300
+        4th St","city":"San Francisco","region":"California","country":null,"city_state":"San
+        Francisco, California","full_address":"300 4th St, San Francisco, CA 94107,
+        USA","google_maps_place_id":"ChIJ3WvjHH6AhYARsa7_5nt170s","apple_maps_place_id":null,"description":""},"geo_latitude":"37.78176","geo_longitude":"-122.401198","url":"https://luma.com/fzi1kdh7","registration_questions":[],"timezone":"America/Los_Angeles","visibility":"private","meeting_url":null,"feedback_email":{"enabled":false},"zoom_meeting_url":null,"api_id":"evt-eJuh3dgMEiJ2MUj","calendar_api_id":"cal-G6RucUfw1nBs8qT","user_api_id":"usr-Tw1bycXxO8mdP8w","tags":[]},"hosts":[{"api_id":"usr-Tw1bycXxO8mdP8w","email":"events@fetch.ai","name":"Fetch.ai
+        Innovation Lab","first_name":"events","last_name":"fetch","avatar_url":"https://images.lumacdn.com/avatars/pg/0913cb66-4959-4288-9f45-32c2b59d8e69","id":"usr-Tw1bycXxO8mdP8w"}]}'
+    headers:
+      CF-RAY:
+      - 9db7189a4e3bda41-LAX
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 13 Mar 2026 00:59:27 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - __cf_bm=RK5OYanH0MslNF4mfSzQFWN2fZ7J67BqGoGznblxgd8-1773363567-1.0.1.1-VaTEv21gLOjcrzbSF8ldrgUCkrH3qpWBhgRZ2KmytkjA2odIbQN5.o6rM_5nbBC0vMfPK2VeS6MEzkx8qIkcayDhnF3h_r_mIasL.QuIFTg;
+        path=/; expires=Fri, 13-Mar-26 01:29:27 GMT; domain=.luma.com; HttpOnly; Secure;
+        SameSite=None
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      vary:
+      - Origin
+      - accept-encoding
+    status:
+      code: 200
+      message: OK
+version: 1
