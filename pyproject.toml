@@ -19,7 +19,7 @@ dev = [
 ]
 
 [tool.hatch.build.targets.wheel]
-packages = ["core"]
+packages = ["luma_sdk"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
