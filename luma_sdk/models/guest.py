@@ -4,6 +4,7 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Optional
 
+from luma_sdk.models.base import LumaModel
 from luma_sdk.requester import HttpRequester
 from luma_sdk.utils.datetime import parse_dt as _parse_dt
 
@@ -97,9 +98,9 @@ class EventTicketOrder:
         )
 
 
-class Guest:
+class Guest(LumaModel):
     def __init__(self, data: dict, requester: HttpRequester) -> None:
-        self._requester = requester
+        super().__init__(data, requester)
 
         self.id: str = data["id"]
         self.user_id: str = data["user_id"]

@@ -4,7 +4,9 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import TYPE_CHECKING, Optional
 
+from luma_sdk.models.base import LumaModel
 from luma_sdk.requester import HttpRequester
+from luma_sdk.utils.datetime import parse_dt as _parse_dt
 
 if TYPE_CHECKING:
     from luma_sdk.models.guest import Guest
@@ -30,9 +32,9 @@ class GeoAddress:
 
 
 
-class Event:
+class Event(LumaModel):
     def __init__(self, data: dict, requester: HttpRequester) -> None:
-        self._requester = requester
+        super().__init__(data, requester)
 
         self.id: str = data["api_id"]
         self.calendar_id: str = data["calendar_api_id"]
@@ -41,8 +43,8 @@ class Event:
         self.description_md: Optional[str] = data.get("description_md")
         self.cover_url: Optional[str] = data.get("cover_url")
         self.url: Optional[str] = data.get("url")
-        self.start_at: datetime = datetime.fromisoformat(data["start_at"].replace("Z", "+00:00"))
-        self.end_at: datetime = datetime.fromisoformat(data["end_at"].replace("Z", "+00:00"))
+        self.start_at: datetime = _parse_dt(data["start_at"])
+        self.end_at: datetime = _parse_dt(data["end_at"])
         self.timezone: Optional[str] = data.get("timezone")
         self.visibility: Optional[str] = data.get("visibility")
         self.geo_address: Optional[GeoAddress] = (
