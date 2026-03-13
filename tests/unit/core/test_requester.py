@@ -1,5 +1,7 @@
 import pytest
+import requests
 from core.requester import Requester
+from core.exceptions import ClientError, ForbiddenError, NotFoundError, ServerError, TimeoutError
 
 
 def test_requester_init():
@@ -41,3 +43,34 @@ def test_no_custom_headers_keeps_defaults():
     req = Requester(base_url="https://public-api.luma.com")
     assert req._session.headers["Accept"] == "application/json"
     assert "x-luma-api-key" not in req._session.headers
+
+
+def test_check_200_does_not_raise():
+    Requester._check(200, {})
+
+
+def test_check_404_raises_not_found():
+    with pytest.raises(NotFoundError):
+        Requester._check(404, {})
+
+
+def test_check_403_raises_forbidden():
+    with pytest.raises(ForbiddenError):
+        Requester._check(403, {})
+
+
+def test_check_4xx_raises_client_error():
+    with pytest.raises(ClientError):
+        Requester._check(400, {})
+
+
+def test_check_5xx_raises_server_error():
+    with pytest.raises(ServerError):
+        Requester._check(500, {})
+
+
+def test_timeout_raises_timeout_error(monkeypatch):
+    req = Requester(base_url="https://public-api.luma.com")
+    monkeypatch.setattr(req._session, "request", lambda **kwargs: (_ for _ in ()).throw(requests.exceptions.Timeout()))
+    with pytest.raises(TimeoutError):
+        req.get("/events")
