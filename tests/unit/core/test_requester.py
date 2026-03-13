@@ -20,9 +20,17 @@ def test_requester_omits_white_spaces():
     req = Requester(base_url="  https://public-api.luma.com/  ")
     assert req._base_url == "https://public-api.luma.com"
 
-def test_construct_url():
-    req = Requester(base_url="https://public-api.luma.com")
-    assert req._construct_url("/events") == "https://public-api.luma.com/events"
+def test_construct_url_adds_leading_slash():
+    req = Requester("https://api.test")
+    assert req._construct_url("events") == "https://api.test/events"
+
+
+def test_construct_url_preserves_leading_slash():
+    req = Requester("https://api.test")
+    assert req._construct_url("/events") == "https://api.test/events"
+def test_base_url_must_be_https():
+    with pytest.raises(ValueError):
+        Requester("http://insecure.com")
 
 def test_construct_url_adds_leading_slash():
     req = Requester(base_url="https://public-api.luma.com")
@@ -69,8 +77,8 @@ def test_check_5xx_raises_server_error():
         Requester._check(500, {})
 
 
-def test_timeout_raises_timeout_error(monkeypatch):
-    req = Requester(base_url="https://public-api.luma.com")
-    monkeypatch.setattr(req._session, "request", lambda **kwargs: (_ for _ in ()).throw(requests.exceptions.Timeout()))
+def test_timeout_is_wrapped(mocker):
+    req = Requester("https://api.test")
+    mocker.patch.object(req._session, "request", side_effect=requests.exceptions.Timeout())
     with pytest.raises(TimeoutError):
         req.get("/events")
