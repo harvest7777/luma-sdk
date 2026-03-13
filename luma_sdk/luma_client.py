@@ -1,4 +1,5 @@
 from luma_sdk.models.event import Event
+from luma_sdk.models.guest import Guest
 from luma_sdk.paginated_list import PaginatedList
 from luma_sdk.requester import Requester
 
@@ -27,3 +28,7 @@ class LumaClient:
     def get_event(self, event_id: str) -> Event:
         data = self._requester.get("/event/get", parameters={"id": event_id})
         return Event(data["event"], self._requester)
+
+    def get_guest(self, event_id: str, guest_id: str) -> Guest:
+        data = self._requester.get("/event/get-guest", parameters={"event_id": event_id, "id": guest_id})
+        return Guest(data["guest"], self._requester)
