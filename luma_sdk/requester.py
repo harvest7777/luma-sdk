@@ -1,6 +1,6 @@
 import requests
 
-from luma_sdk.exceptions import ApiError, ClientError, ForbiddenError, NotFoundError, ServerError, TimeoutError
+from luma_sdk.exceptions import ApiError, ClientError, ForbiddenError, NotFoundError, ServerError, RequestTimeoutError
 
 
 class Requester:
@@ -44,7 +44,7 @@ class Requester:
                 timeout=self._timeout,
             )
         except requests.exceptions.Timeout:
-            raise TimeoutError()
+            raise RequestTimeoutError()
         try:
             data = response.json()
         except ValueError:

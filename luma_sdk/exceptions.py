@@ -24,5 +24,5 @@ class ServerError(ApiError):
     """Raised on 5xx errors."""
 
 
-class TimeoutError(Exception):
+class RequestTimeoutError(Exception):
     """Raised when a request times out."""

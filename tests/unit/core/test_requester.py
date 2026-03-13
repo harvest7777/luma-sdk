@@ -1,7 +1,7 @@
 import pytest
 import requests
 from luma_sdk.requester import Requester
-from luma_sdk.exceptions import ClientError, ForbiddenError, NotFoundError, ServerError, TimeoutError
+from luma_sdk.exceptions import ClientError, ForbiddenError, NotFoundError, ServerError, RequestTimeoutError
 
 
 def test_requester_init():
@@ -76,5 +76,5 @@ def test_check_5xx_raises_server_error():
 def test_timeout_raises_timeout_error(mocker):
     req = Requester("https://api.test")
     mocker.patch.object(req._session, "request", side_effect=requests.exceptions.Timeout())
-    with pytest.raises(TimeoutError):
+    with pytest.raises(RequestTimeoutError):
         req.get("/events")
