@@ -1,4 +1,5 @@
 from luma_sdk.models.event import Event
+from luma_sdk.paginated_list import PaginatedList
 from luma_sdk.requester import Requester
 
 
@@ -20,6 +21,9 @@ class LumaClient:
         self._requester = Requester(base_url=self._BASE_URL, timeout=timeout, headers={"x-luma-api-key": api_key})
 
     # These all MUST be top level resources. We are following a RESTful ownership pattern
+    def get_events(self, **filters) -> PaginatedList[Event]:
+        return PaginatedList(self._requester, "/calendar/list-events", Event, params=filters)
+
     def get_event(self, event_id: str) -> Event:
         data = self._requester.get("/event/get", parameters={"id": event_id})
         return Event(data, self._requester)
