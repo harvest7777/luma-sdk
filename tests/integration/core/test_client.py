@@ -19,6 +19,7 @@ def test_get_event_returns_event(luma_client):
     assert isinstance(event.hosts, list)
     assert len(event.hosts) > 0
 
+@pytest.mark.vcr
 def test_bad_event_raises_forbidden(luma_client):
     with pytest.raises(ForbiddenError):
         luma_client.get_event("evt-xxxxxxxxxxxxxx")

@@ -77,7 +77,7 @@ def test_check_5xx_raises_server_error():
         Requester._check(500, {})
 
 
-def test_timeout_is_wrapped(mocker):
+def test_timeout_raises_timeout_error(mocker):
     req = Requester("https://api.test")
     mocker.patch.object(req._session, "request", side_effect=requests.exceptions.Timeout())
     with pytest.raises(TimeoutError):
