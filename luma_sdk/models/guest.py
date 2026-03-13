@@ -108,11 +108,12 @@ class Guest:
         self.user_first_name: Optional[str] = data.get("user_first_name")
         self.user_last_name: Optional[str] = data.get("user_last_name")
         self.approval_status: str = data["approval_status"]
-        self.check_in_qr_code: Optional[str] = data.get("check_in_qr_code")
+        self.check_in_qr_code: str = data["check_in_qr_code"]
         self.custom_source: Optional[str] = data.get("custom_source")
         self.invited_at: Optional[datetime] = _parse_dt(data.get("invited_at"))
         self.joined_at: Optional[datetime] = _parse_dt(data.get("joined_at"))
         self.registered_at: Optional[datetime] = _parse_dt(data.get("registered_at"))
+        # Deprecated by Luma API — check_in is moving to EventTicket.checked_in_at
         self.checked_in_at: Optional[datetime] = _parse_dt(data.get("checked_in_at"))
         self.phone_number: Optional[str] = data.get("phone_number")
         self.eth_address: Optional[str] = data.get("eth_address")
