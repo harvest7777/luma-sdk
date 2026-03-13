@@ -1,7 +1,4 @@
 from datetime import datetime, timezone
-
-import pytest
-
 from luma_sdk.utils.datetime import parse_dt
 
 

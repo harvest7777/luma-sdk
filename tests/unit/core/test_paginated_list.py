@@ -1,4 +1,3 @@
-import pytest
 from luma_sdk.paginated_list import PaginatedList
 
 
