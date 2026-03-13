@@ -15,8 +15,15 @@ def vcr_config():
                 request.headers[header] = "XXXXXXXXX REDACTED XXXXXXXXX"
         return request
 
+    def scrub_sensitive_response_headers(response):
+        for header in list(response["headers"].keys()):
+            if any(k in header.lower() for k in SENSITIVE_HEADER_KEYWORDS):
+                response["headers"][header] = ["XXXXXXXXX REDACTED XXXXXXXXX"]
+        return response
+
     return {
         "record_mode": "once",
         "match_on": ["method", "scheme", "host", "port", "path", "query"],
         "before_record_request": scrub_sensitive_headers,
+        "before_record_response": scrub_sensitive_response_headers,
     }
