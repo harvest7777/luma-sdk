@@ -1,4 +1,4 @@
-from luma_sdk import LumaClient, PaginatedList
+from luma_sdk import *
 
 def test_client_instantiation():
     client = LumaClient(api_key="test-key")
