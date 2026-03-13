@@ -35,19 +35,6 @@ Every model must accept `(data: dict, requester: HttpRequester)` — but this co
 
 ---
 
-### 2. `config.py` runs `load_dotenv()` at import time
-
-```python
-# config.py — runs on every import
-load_dotenv()
-```
-
-Side effects at import time are a footgun. It runs in test contexts, CI, and library usage whether the caller wants it or not.
-
-**Fix:** move `load_dotenv()` to application entry points (e.g. `app/main.py`), not the module level of `config.py`. `config.py` should just read env vars — let callers decide when to load the `.env` file.
-
----
-
 ### 3. Datetime parsing is inconsistent
 
 `guest.py` uses the shared `parse_dt()` utility. `event.py` duplicates the same logic inline:
@@ -100,6 +87,5 @@ utils/datetime  ← leaf
 |---|---|---|
 | Circular imports | None | Handled correctly |
 | `PaginatedList` implicit constructor contract | Medium | Fix before adding a second paginated resource |
-| `config.py` import-time side effect | Medium | Move `load_dotenv()` to app entry points |
 | Datetime parsing inconsistency | Low | Use `parse_dt()` in `event.py` |
 | `guest.py` God module risk | Low/Watch | Revisit if it grows past ~150 LOC |

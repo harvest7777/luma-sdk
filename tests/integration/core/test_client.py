@@ -1,12 +1,13 @@
+import os
+
 import pytest
 
 from luma_sdk import *
-from luma_sdk.config import LUMA_API_KEY
+
 
 @pytest.fixture(scope="session")
 def luma_client():
-    api_key = LUMA_API_KEY
-    return LumaClient(api_key=api_key)
+    return LumaClient(api_key=os.getenv("LUMA_API_KEY"))
 @pytest.mark.vcr
 def test_get_event_returns_event(luma_client):
     event = luma_client.get_event("evt-eJuh3dgMEiJ2MUj")
