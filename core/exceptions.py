@@ -12,8 +12,12 @@ class NotFoundError(ApiError):
     """Raised on 404."""
 
 
+class ForbiddenError(ApiError):
+    """Raised on 403."""
+
+
 class ClientError(ApiError):
-    """Raised on 4xx errors other than 404."""
+    """Raised on 4xx errors other than 403 and 404."""
 
 
 class ServerError(ApiError):

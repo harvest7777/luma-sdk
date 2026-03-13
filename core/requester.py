@@ -1,6 +1,6 @@
 import requests
 
-from core.exceptions import ApiError, ClientError, NotFoundError, ServerError
+from core.exceptions import ApiError, ClientError, ForbiddenError, NotFoundError, ServerError
 
 
 class Requester:
@@ -69,6 +69,8 @@ class Requester:
     def _check(status: int, data: object) -> None:
         if status == 404:
             raise NotFoundError(status, data)
+        if status == 403:
+            raise ForbiddenError(status, data)
         if 400 <= status < 500:
             raise ClientError(status, data)
         if status >= 500:
