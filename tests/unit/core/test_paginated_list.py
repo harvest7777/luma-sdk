@@ -1,9 +1,14 @@
+from luma_sdk.models.base import LumaModel
 from luma_sdk.paginated_list import PaginatedList
 
 
-class FakeModel:
+class FakeModel(LumaModel):
     def __init__(self, data, requester):
+        super().__init__(data, requester)
         self.id = data["api_id"]
+
+    def __repr__(self):
+        return f"<FakeModel id={self.id!r}>"
 
 
 def make_requester(pages):

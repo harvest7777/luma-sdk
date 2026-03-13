@@ -73,8 +73,13 @@ def test_check_5xx_raises_server_error():
         Requester._check(500, {})
 
 
-def test_timeout_raises_timeout_error(mocker):
+def test_timeout_raises_timeout_error():
     req = Requester("https://api.test")
-    mocker.patch.object(req._session, "request", side_effect=requests.exceptions.Timeout())
+
+    class TimeoutSession:
+        def request(self, *args, **kwargs):
+            raise requests.exceptions.Timeout()
+
+    req._session = TimeoutSession()
     with pytest.raises(RequestTimeoutError):
         req.get("/events")
