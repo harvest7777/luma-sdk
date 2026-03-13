@@ -16,8 +16,6 @@ def test_get_event_returns_event(luma_client):
     assert event.id == "evt-eJuh3dgMEiJ2MUj"
     assert isinstance(event.name, str)
     assert event.timezone == "America/Los_Angeles"
-    assert isinstance(event.hosts, list)
-    assert len(event.hosts) > 0
 
 @pytest.mark.vcr
 def test_bad_event_raises_forbidden(luma_client):

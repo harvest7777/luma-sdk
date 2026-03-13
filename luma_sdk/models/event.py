@@ -24,22 +24,6 @@ class GeoAddress:
         )
 
 
-@dataclass
-class Host:
-    api_id: str
-    name: str
-    email: Optional[str]
-    avatar_url: Optional[str]
-
-    @classmethod
-    def _from_dict(cls, data: dict) -> "Host":
-        return cls(
-            api_id=data["api_id"],
-            name=data.get("name") or "",
-            email=data.get("email"),
-            avatar_url=data.get("avatar_url"),
-        )
-
 
 class Event:
     def __init__(self, data: dict, requester) -> None:
@@ -63,7 +47,6 @@ class Event:
             else None
         )
         self.tags: list[str] = data.get("tags") or []
-        self.hosts: list[Host] = [Host._from_dict(h) for h in data.get("hosts", [])]
 
     def __repr__(self) -> str:
         return f"<Event id={self.id!r} name={self.name!r}>"
