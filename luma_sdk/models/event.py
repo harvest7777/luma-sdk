@@ -2,7 +2,11 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from datetime import datetime
-from typing import Optional
+from typing import Optional, Protocol
+
+
+class HttpRequester(Protocol):
+    def get(self, path: str, parameters: dict | None = None) -> dict | list: ...
 
 
 @dataclass
@@ -26,7 +30,7 @@ class GeoAddress:
 
 
 class Event:
-    def __init__(self, data: dict, requester) -> None:
+    def __init__(self, data: dict, requester: HttpRequester) -> None:
         self._requester = requester
         event = data["event"]
 
