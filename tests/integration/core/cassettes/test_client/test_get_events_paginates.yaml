@@ -1,0 +1,53 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.5
+      x-luma-api-key:
+      - XXXXXXXXX REDACTED XXXXXXXXX
+    method: GET
+    uri: https://public-api.luma.com/v1/calendar/list-events
+  response:
+    body:
+      string: '{"entries":[{"api_id":"evt-page1a","event":{"api_id":"evt-page1a","calendar_api_id":"cal-G6RucUfw1nBs8qT","name":"Event
+        Page 1 A","start_at":"2024-09-04T00:00:00.000Z","end_at":"2024-09-04T03:00:00.000Z","timezone":"America/Los_Angeles","url":"https://lu.ma/page1a"},"tags":[]},{"api_id":"evt-page1b","event":{"api_id":"evt-page1b","calendar_api_id":"cal-G6RucUfw1nBs8qT","name":"Event
+        Page 1 B","start_at":"2024-09-05T00:00:00.000Z","end_at":"2024-09-05T03:00:00.000Z","timezone":"America/Los_Angeles","url":"https://lu.ma/page1b"},"tags":[]}],"has_more":true,"next_cursor":"cursor-page2"}'
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.5
+      x-luma-api-key:
+      - XXXXXXXXX REDACTED XXXXXXXXX
+    method: GET
+    uri: https://public-api.luma.com/v1/calendar/list-events?pagination_cursor=cursor-page2
+  response:
+    body:
+      string: '{"entries":[{"api_id":"evt-page2a","event":{"api_id":"evt-page2a","calendar_api_id":"cal-G6RucUfw1nBs8qT","name":"Event
+        Page 2 A","start_at":"2024-09-06T00:00:00.000Z","end_at":"2024-09-06T03:00:00.000Z","timezone":"America/Los_Angeles","url":"https://lu.ma/page2a"},"tags":[]}],"has_more":false}'
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+    status:
+      code: 200
+      message: OK
+version: 1
