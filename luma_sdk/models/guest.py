@@ -5,12 +5,7 @@ from datetime import datetime
 from typing import Optional
 
 from luma_sdk.requester import HttpRequester
-
-
-def _parse_dt(value: str | None) -> datetime | None:
-    if value is None:
-        return None
-    return datetime.fromisoformat(value.replace("Z", "+00:00"))
+from luma_sdk.utils.datetime import parse_dt as _parse_dt
 
 
 @dataclass
