@@ -37,43 +37,34 @@ print(guest.user_email)
 
 ## Without the SDK
 
-The same script without the SDK, using raw HTTP calls:
+The same three examples using raw HTTP:
 
 ```python
-import os
 import requests
-from datetime import datetime, timezone
-from dotenv import load_dotenv
 
-load_dotenv()
+headers = {"x-luma-api-key": "your_key_here", "Accept": "application/json"}
 
-headers = {"x-luma-api-key": os.getenv("LUMA_API_KEY"), "Accept": "application/json"}
-now = datetime.now(timezone.utc)
-upcoming = []
+# fetch a single event
+response = requests.get("https://public-api.luma.com/v1/event/get", headers=headers, params={"id": "evt-abc123"})
+event = response.json()["event"]
+print(event["name"], event["start_at"])
 
+# iterate over all events (manual pagination)
 cursor = None
 while True:
     params = {"pagination_cursor": cursor} if cursor else {}
     response = requests.get("https://public-api.luma.com/v1/calendar/list-events", headers=headers, params=params)
-    response.raise_for_status()
     data = response.json()
-
     for entry in data["entries"]:
-        event = entry["event"]
-        start_at = datetime.fromisoformat(event["start_at"].replace("Z", "+00:00"))
-        if start_at >= now:
-            upcoming.append(event)
-
+        print(entry["event"]["name"], entry["event"]["url"])
     if not data["has_more"]:
         break
     cursor = data["next_cursor"]
 
-print(f"Fetch.ai upcoming events ({len(upcoming)} total):\n")
-for event in upcoming:
-    start_at = datetime.fromisoformat(event["start_at"].replace("Z", "+00:00"))
-    print(f"  {start_at.strftime('%Y-%m-%d')}  {event['name']}")
-    print(f"           {event['url']}")
-    print()
+# fetch a guest on an event
+response = requests.get("https://public-api.luma.com/v1/event/get-guest", headers=headers, params={"event_id": "evt-abc123", "id": "gst-xyz789"})
+guest = response.json()["guest"]
+print(guest["user"]["email"])
 ```
 
 ---
