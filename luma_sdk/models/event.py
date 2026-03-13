@@ -2,9 +2,12 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import datetime
-from typing import Optional
+from typing import TYPE_CHECKING, Optional
 
 from luma_sdk.requester import HttpRequester
+
+if TYPE_CHECKING:
+    from luma_sdk.models.guest import Guest
 
 
 @dataclass
@@ -47,6 +50,11 @@ class Event:
             if data.get("geo_address_json")
             else None
         )
+
+    def get_guest(self, guest_id: str) -> "Guest":
+        from luma_sdk.models.guest import Guest
+        data = self._requester.get("/event/get-guest", parameters={"event_id": self.id, "id": guest_id})
+        return Guest(data["guest"], self._requester)
 
     def __repr__(self) -> str:
         return f"<Event id={self.id!r} name={self.name!r}>"

@@ -4,7 +4,7 @@ from luma_sdk import LumaClient, PaginatedList
 from luma_sdk.config import LUMA_API_KEY
 from luma_sdk.models.event import Event
 from luma_sdk.models.guest import Guest
-from luma_sdk.exceptions import ForbiddenError, NotFoundError
+from luma_sdk.exceptions import ForbiddenError
 
 @pytest.fixture(scope="session")
 def luma_client():
@@ -31,7 +31,8 @@ def test_get_events_returns_only_event_types(luma_client):
 
 @pytest.mark.vcr
 def test_get_guest_returns_guest(luma_client):
-    guest = luma_client.get_guest("evt-OlQU8n0zzhDZc7A", "gst-RfpTVyE4hInUucp")
+    event = luma_client.get_event("evt-OlQU8n0zzhDZc7A")
+    guest = event.get_guest("gst-RfpTVyE4hInUucp")
     assert isinstance(guest, Guest)
     assert guest.id == "gst-RfpTVyE4hInUucp"
     assert isinstance(guest.user_email, str)

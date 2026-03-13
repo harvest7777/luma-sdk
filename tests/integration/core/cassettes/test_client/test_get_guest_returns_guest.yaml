@@ -13,13 +13,62 @@ interactions:
       x-luma-api-key:
       - XXXXXXXXX REDACTED XXXXXXXXX
     method: GET
-    uri: https://public-api.luma.com/v1/event/get-guest?event_id=evt-OlQU8n0zzhDZc7A&id=gst-RfpTVyE4hInUucp
+    uri: https://public-api.luma.com/v1/event/get?id=evt-OlQU8n0zzhDZc7A
   response:
     body:
-      string: '{"guest":{"id":"gst-RfpTVyE4hInUucp","user_id":"usr-Dm1yj3LITLHddjM","api_id":"gst-RfpTVyE4hInUucp","approval_status":"approved","created_at":"2024-08-20T00:58:29.707Z","custom_source":null,"eth_address":null,"invited_at":"2024-08-20T00:58:29.706Z","joined_at":null,"phone_number":"+14152181509","registered_at":"2024-08-20T01:12:33.786Z","registration_answers":[],"solana_address":null,"user_api_id":"usr-Dm1yj3LITLHddjM","user_name":"Irina","user_first_name":"Irina","user_last_name":"Bulygina","user_email":"irinabulygina@gmail.com","checked_in_at":"2024-08-24T02:23:50.525Z","check_in_qr_code":"https://luma.com/check-in/evt-OlQU8n0zzhDZc7A?pk=g-m5I01LufYhlINA0","event_tickets":[{"id":"eventticket-FEpGlwCU8JKXPOu","amount":0,"amount_discount":0,"amount_tax":0,"api_id":"eventticket-FEpGlwCU8JKXPOu","currency":null,"event_ticket_type_id":"evtticktyp-posquYIRcXuoKRW","name":"Standard","checked_in_at":"2024-08-24T02:23:50.525Z","is_captured":false}],"event_ticket":{"id":"eventticket-FEpGlwCU8JKXPOu","amount":0,"amount_discount":0,"amount_tax":0,"api_id":"eventticket-FEpGlwCU8JKXPOu","currency":null,"event_ticket_type_id":"evtticktyp-posquYIRcXuoKRW","name":"Standard","checked_in_at":"2024-08-24T02:23:50.525Z","is_captured":false},"event_ticket_orders":[{"amount":0,"amount_discount":0,"amount_tax":0,"api_id":"evttktord-teeabIlVdaoyEhc","coupon_info":null,"currency":"usd","id":"evttktord-teeabIlVdaoyEhc","is_captured":false}]}}'
+      string: "{\"event\":{\"id\":\"evt-OlQU8n0zzhDZc7A\",\"calendar_id\":\"cal-G6RucUfw1nBs8qT\",\"user_id\":\"usr-Tw1bycXxO8mdP8w\",\"created_at\":\"2024-08-11T23:05:21.577Z\",\"cover_url\":\"https://images.lumacdn.com/event-covers/x7/d4b5408a-fa16-457a-a7ca-dbc462b55d2f\",\"name\":\"\U0001F389
+        AI-Agents Networking + Launch Party! Fetch.ai Innovation Lab\",\"description\":\"We
+        warmly welcome you to the AI-Agents Networking + Launch Party of Fetch.ai
+        Innovation Lab!\\nDiscover the world of AI Agents powered by Fetch.ai at the
+        Zo House this Friday!\\nJoin us for great conversations, rapid-fire lightning
+        pitches,  food, and quality networking opportunities with Web3 Series A founders,
+        active VC's and angel investors.\\nThis is the perfect chance to connect with
+        like-minded individuals and industry leaders.\\n\\nRun by Young Entrepreneurs
+        Hub \U0001F3DD\uFE0F (reach out!)\\n\\nAgenda\\n7:00 - 8:00 Networking w/
+        food & bev\\n8:00 - 8:20 Introduction to Fetch.ai Innovation Lab\\n8:20 -
+        8:40 Lighting pitches by Sanket, Tanay,\u2060 Parth, Natesh and Madhura\\n8:40
+        - 10:00 Networking\\n\\nHosts\\nFetch.ai is the leading platform for creating
+        on-chain AI agents. Fetch empowers developers to build, deploy, and monetize
+        AI applications using its agent-based infrastructure.\\nYoung Entrepreneurs
+        Hub \U0001F3DD\uFE0F is Silicon Valley's fastest growing tech community builder!
+        Join or partner today! Member? We do events + matchmaking programs. Partner?
+        We build & operate  communities as a service. Apply to join the private slack
+        channel!\\n\\nZo House is a real life space built for creators, collectors,
+        and NFT enthusiasts to work, live, socialize, and network, bending the boundaries
+        of Metaverse and Universe.\",\"description_md\":\"# \u200BWe warmly welcome
+        you to the AI-Agents Networking + Launch Party of [Fetch.ai](http://Fetch.ai)
+        Innovation Lab!\\n\\nDiscover the world of AI Agents powered by [Fetch.ai](http://Fetch.ai)
+        at the [Zo House](https://zo.xyz/house) this Friday!\\n\\n\u200BJoin us for
+        great conversations, rapid-fire lightning pitches, food, and quality networking
+        opportunities with Web3 Series A founders, active VC's and angel investors.\\n\\n\u200BThis
+        is the perfect chance to connect with like-minded individuals and industry
+        leaders.\\n\\n***\\n\\n\u200BRun by [Young Entrepreneurs Hub](https://www.linkedin.com/company/young-entrepreneurs-hub/)
+        \U0001F3DD\uFE0F ([reach out!](https://linktr.ee/young.entrepreneurs.hub))\\n\\n***\\n\\n##
+        \u200BAgenda\\n\\n7:00 - 8:00 Networking w/ food & bev\\n\\n\u200B8:00 - 8:20
+        Introduction to [Fetch.ai](http://Fetch.ai) Innovation Lab\\n\\n\u200B8:20
+        - 8:40 Lighting pitches by Sanket, Tanay,\u2060 Parth, Natesh and Madhura\\n\\n\u200B8:40
+        - 10:00 Networking\\n\\n***\\n\\n## \u200BHosts\\n\\n\u200B[Fetch.ai](http://Fetch.ai)
+        is the leading platform for creating on-chain AI agents. Fetch empowers developers
+        to build, deploy, and monetize AI applications using its agent-based infrastructure.\\n\\n[Young
+        Entrepreneurs Hub](https://linktr.ee/young.entrepreneurs.hub) \U0001F3DD\uFE0F
+        is Silicon Valley's fastest growing tech community builder! Join or partner
+        today! Member? We do events + matchmaking programs. Partner? We build & operate
+        communities as a service. [Apply to join the private slack channel](https://docs.google.com/forms/d/e/1FAIpQLSfxxUa5SrD8qOFZLdIFTZoSGp3l3RMv4bQZQhrkp0nXLAGCjg/viewform?usp=pp_url)!
+        \ \\n  \\n[Zo House](https://zo.xyz/house) is a real life space built for
+        creators, collectors, and NFT enthusiasts to work, live, socialize, and network,
+        bending the boundaries of Metaverse and Universe.\",\"start_at\":\"2024-08-24T02:00:00.000Z\",\"duration_interval\":\"P0Y0M0DT3H0M0S\",\"end_at\":\"2024-08-24T05:00:00.000Z\",\"geo_address_json\":{\"address\":\"Zo
+        House\",\"city\":\"San Francisco\",\"region\":\"California\",\"country\":null,\"city_state\":\"San
+        Francisco, California\",\"full_address\":\"Zo House, 300 4th St, San Francisco,
+        CA 94107, USA\",\"google_maps_place_id\":\"ChIJ-38_GfWBhYARuvLE-oxf9yI\",\"apple_maps_place_id\":null,\"description\":\"\"},\"geo_latitude\":\"37.78176\",\"geo_longitude\":\"-122.401198\",\"url\":\"https://luma.com/7mlrt921\",\"registration_questions\":[],\"timezone\":\"America/Los_Angeles\",\"visibility\":\"public\",\"meeting_url\":null,\"feedback_email\":{\"enabled\":false},\"zoom_meeting_url\":null,\"api_id\":\"evt-OlQU8n0zzhDZc7A\",\"calendar_api_id\":\"cal-G6RucUfw1nBs8qT\",\"user_api_id\":\"usr-Tw1bycXxO8mdP8w\",\"tags\":[]},\"hosts\":[{\"api_id\":\"usr-Tw1bycXxO8mdP8w\",\"email\":\"events@fetch.ai\",\"name\":\"Fetch.ai
+        Innovation Lab\",\"first_name\":\"events\",\"last_name\":\"fetch\",\"avatar_url\":\"https://images.lumacdn.com/avatars/pg/0913cb66-4959-4288-9f45-32c2b59d8e69\",\"id\":\"usr-Tw1bycXxO8mdP8w\"},{\"api_id\":\"usr-cDE6NZGKuGA44AP\",\"email\":\"its.young.entrepreneurs.hub@gmail.com\",\"name\":\"Global
+        Entrepreneurs Hub\",\"first_name\":\"Global Entrepreneurs Hub\",\"last_name\":null,\"avatar_url\":\"https://images.lumacdn.com/avatars/53/7b8943ac-2e60-44d9-99c5-9b8a814fda7c\",\"id\":\"usr-cDE6NZGKuGA44AP\"},{\"api_id\":\"usr-oUTIxE0c8yIomEz\",\"email\":\"sfo@zo.xyz\",\"name\":\"Zo
+        House SF\",\"first_name\":\"Zo San\",\"last_name\":\"Francisco\",\"avatar_url\":\"https://images.lumacdn.com/avatars/et/4ce4fb84-b66e-47d8-bbf2-7f5a31d8c5a9\",\"id\":\"usr-oUTIxE0c8yIomEz\"},{\"api_id\":\"usr-AxYZzSPnd5lUhuW\",\"email\":\"aiifyevents@gmail.com\",\"name\":\"Aiify.io
+        Events\",\"first_name\":\"Aiify\",\"last_name\":\"Events\",\"avatar_url\":\"https://images.lumacdn.com/avatars/fd/1584d279-999e-4666-a546-70b8ed07fd36\",\"id\":\"usr-AxYZzSPnd5lUhuW\"},{\"api_id\":\"usr-M1c1hU1DRUGGIMA\",\"email\":\"echtman@gmail.com\",\"name\":\"Steven
+        Echtman\",\"first_name\":\"Steven\",\"last_name\":\"Echtman\",\"avatar_url\":\"https://images.lumacdn.com/avatars/01/012276c2-2203-4951-8310-aa358ae54046\",\"id\":\"usr-M1c1hU1DRUGGIMA\"},{\"api_id\":\"usr-Xo3bu45LX98TYLP\",\"email\":\"hello@joinglocommunity.com\",\"name\":\"Global
+        Entrepreneurs Hub (GLO)\",\"first_name\":\"\",\"last_name\":\"\",\"avatar_url\":\"https://images.lumacdn.com/avatars/dw/70fe449c-2226-4576-b962-3d040ebd5686.png\",\"id\":\"usr-Xo3bu45LX98TYLP\"}]}"
     headers:
       CF-RAY:
-      - 9db80f07e9762f5d-LAX
+      - 9db811a8dc3fa609-LAX
       Connection:
       - keep-alive
       Content-Encoding:
@@ -27,13 +76,56 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 13 Mar 2026 03:47:41 GMT
+      - Fri, 13 Mar 2026 03:49:29 GMT
       Server:
       - cloudflare
       Set-Cookie:
-      - __cf_bm=mm_ur90STnWK9CsqiGJyz2Wf1khUEp6NvdWXMkGXcS0-1773373661-1.0.1.1-16xll82iwQFtCD00zOt0FgdtVq9Jjgq9hAkWuQjo6Th9nX4H5CiVQU0u5L5NtmnfjCTv.Mhg6xNKgMFL01yA9zlOMKF9f0kcIK3yNU3SbJg;
-        path=/; expires=Fri, 13-Mar-26 04:17:41 GMT; domain=.luma.com; HttpOnly; Secure;
+      - __cf_bm=kfLiSJ0MMFqfoklat8Is4AbpLfGX.zIl8o9lDCfIMN0-1773373769-1.0.1.1-_lL1meWf5L0AVshGfrhqbv_oXAAjCEp7sWq1ybKDHmg007zrSROTHIiu0iOENN07rJiGdjm_Ab6mY2U1uYs16tyLOppXFukd3S0SwcAdxK8;
+        path=/; expires=Fri, 13-Mar-26 04:19:29 GMT; domain=.luma.com; HttpOnly; Secure;
         SameSite=None
+      Transfer-Encoding:
+      - chunked
+      cf-cache-status:
+      - DYNAMIC
+      vary:
+      - Origin
+      - accept-encoding
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Cookie:
+      - __cf_bm=kfLiSJ0MMFqfoklat8Is4AbpLfGX.zIl8o9lDCfIMN0-1773373769-1.0.1.1-_lL1meWf5L0AVshGfrhqbv_oXAAjCEp7sWq1ybKDHmg007zrSROTHIiu0iOENN07rJiGdjm_Ab6mY2U1uYs16tyLOppXFukd3S0SwcAdxK8
+      User-Agent:
+      - python-requests/2.32.5
+      x-luma-api-key:
+      - XXXXXXXXX REDACTED XXXXXXXXX
+    method: GET
+    uri: https://public-api.luma.com/v1/event/get-guest?event_id=evt-OlQU8n0zzhDZc7A&id=gst-RfpTVyE4hInUucp
+  response:
+    body:
+      string: '{"guest":{"id":"gst-RfpTVyE4hInUucp","user_id":"usr-Dm1yj3LITLHddjM","api_id":"gst-RfpTVyE4hInUucp","approval_status":"approved","created_at":"2024-08-20T00:58:29.707Z","custom_source":null,"eth_address":null,"invited_at":"2024-08-20T00:58:29.706Z","joined_at":null,"phone_number":"+14152181509","registered_at":"2024-08-20T01:12:33.786Z","registration_answers":[],"solana_address":null,"user_api_id":"usr-Dm1yj3LITLHddjM","user_name":"Irina","user_first_name":"Irina","user_last_name":"Bulygina","user_email":"irinabulygina@gmail.com","checked_in_at":"2024-08-24T02:23:50.525Z","check_in_qr_code":"https://luma.com/check-in/evt-OlQU8n0zzhDZc7A?pk=g-m5I01LufYhlINA0","event_tickets":[{"id":"eventticket-FEpGlwCU8JKXPOu","amount":0,"amount_discount":0,"amount_tax":0,"api_id":"eventticket-FEpGlwCU8JKXPOu","currency":null,"event_ticket_type_id":"evtticktyp-posquYIRcXuoKRW","name":"Standard","checked_in_at":"2024-08-24T02:23:50.525Z","is_captured":false}],"event_ticket":{"id":"eventticket-FEpGlwCU8JKXPOu","amount":0,"amount_discount":0,"amount_tax":0,"api_id":"eventticket-FEpGlwCU8JKXPOu","currency":null,"event_ticket_type_id":"evtticktyp-posquYIRcXuoKRW","name":"Standard","checked_in_at":"2024-08-24T02:23:50.525Z","is_captured":false},"event_ticket_orders":[{"amount":0,"amount_discount":0,"amount_tax":0,"api_id":"evttktord-teeabIlVdaoyEhc","coupon_info":null,"currency":"usd","id":"evttktord-teeabIlVdaoyEhc","is_captured":false}]}}'
+    headers:
+      CF-RAY:
+      - 9db811aa8d4bdbe1-LAX
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 13 Mar 2026 03:49:29 GMT
+      Server:
+      - cloudflare
       Transfer-Encoding:
       - chunked
       cf-cache-status:
