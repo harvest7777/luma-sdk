@@ -1,6 +1,6 @@
 import requests
 
-from core.exceptions import ApiError, ClientError, ForbiddenError, NotFoundError, ServerError
+from core.exceptions import ApiError, ClientError, ForbiddenError, NotFoundError, ServerError, TimeoutError
 
 
 class Requester:
@@ -36,12 +36,15 @@ class Requester:
         parameters: dict | None = None,
     ) -> tuple[int, dict | list]:
         url = self._construct_url(path)
-        response = self._session.request(
-            method=verb,
-            url=url,
-            params=parameters,
-            timeout=self._timeout,
-        )
+        try:
+            response = self._session.request(
+                method=verb,
+                url=url,
+                params=parameters,
+                timeout=self._timeout,
+            )
+        except requests.exceptions.Timeout:
+            raise TimeoutError()
         try:
             data = response.json()
         except ValueError:
