@@ -1,9 +1,9 @@
 import pytest
 
-from core import LumaClient
-from core.config import LUMA_API_KEY
-from core.models.event import Event
-from core.exceptions import ForbiddenError, NotFoundError
+from luma_sdk import LumaClient
+from luma_sdk.config import LUMA_API_KEY
+from luma_sdk.models.event import Event
+from luma_sdk.exceptions import ForbiddenError, NotFoundError
 
 @pytest.fixture(scope="session")
 def luma_client():

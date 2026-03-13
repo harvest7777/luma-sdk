@@ -1,6 +1,6 @@
 import requests
 
-from core.exceptions import ApiError, ClientError, ForbiddenError, NotFoundError, ServerError, TimeoutError
+from luma_sdk.exceptions import ApiError, ClientError, ForbiddenError, NotFoundError, ServerError, TimeoutError
 
 
 class Requester:

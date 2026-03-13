@@ -1,5 +1,5 @@
-from core.models.event import Event
-from core.requester import Requester
+from luma_sdk.models.event import Event
+from luma_sdk.requester import Requester
 
 
 class LumaClient:

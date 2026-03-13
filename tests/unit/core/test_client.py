@@ -1,4 +1,4 @@
-from core import LumaClient
+from luma_sdk import LumaClient
 
 
 def test_client_instantiation():

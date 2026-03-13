@@ -1,5 +1,5 @@
 import pytest
-from core.requester import Requester
+from luma_sdk.requester import Requester
 
 
 @pytest.mark.vcr
