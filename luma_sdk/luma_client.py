@@ -22,8 +22,8 @@ class LumaClient:
 
     # These all MUST be top level resources. We are following a RESTful ownership pattern
     def get_events(self, **filters) -> PaginatedList[Event]:
-        return PaginatedList(self._requester, "/calendar/list-events", Event, params=filters)
+        return PaginatedList(self._requester, "/calendar/list-events", Event, params=filters, entry_key="event")
 
     def get_event(self, event_id: str) -> Event:
         data = self._requester.get("/event/get", parameters={"id": event_id})
-        return Event(data, self._requester)
+        return Event(data["event"], self._requester)

@@ -8,11 +8,12 @@ T = TypeVar("T")
 
 
 class PaginatedList(Generic[T]):
-    def __init__(self, requester: HttpRequester, path: str, model_cls: type[T], params: dict | None = None) -> None:
+    def __init__(self, requester: HttpRequester, path: str, model_cls: type[T], params: dict | None = None, entry_key: str | None = None) -> None:
         self._requester = requester
         self._path = path
         self._model_cls = model_cls
         self._params = params or {}
+        self._entry_key = entry_key
 
         self._elements: list[T] = []
         self._next_cursor: str | None = None
@@ -25,7 +26,8 @@ class PaginatedList(Generic[T]):
 
         data = self._requester.get(self._path, parameters=params)
 
-        new_items = [self._model_cls(entry, self._requester) for entry in data["entries"]]
+        entries = [e[self._entry_key] if self._entry_key else e for e in data["entries"]]
+        new_items = [self._model_cls(entry, self._requester) for entry in entries]
         self._elements.extend(new_items)
         self._has_more = data["has_more"]
         self._next_cursor = data.get("next_cursor")
