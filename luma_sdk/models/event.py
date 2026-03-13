@@ -2,11 +2,9 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import datetime
-from typing import Optional, Protocol
+from typing import Optional
 
-
-class HttpRequester(Protocol):
-    def get(self, path: str, parameters: dict | None = None) -> dict | list: ...
+from luma_sdk.requester import HttpRequester
 
 
 @dataclass

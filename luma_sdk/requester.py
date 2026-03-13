@@ -1,6 +1,11 @@
 import requests
+from typing import Protocol
 
 from luma_sdk.exceptions import ApiError, ClientError, ForbiddenError, NotFoundError, ServerError, RequestTimeoutError
+
+
+class HttpRequester(Protocol):
+    def get(self, path: str, parameters: dict | None = None) -> dict | list: ...
 
 
 class Requester:

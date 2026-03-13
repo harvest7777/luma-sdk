@@ -2,11 +2,13 @@ from __future__ import annotations
 
 from typing import Generic, Iterator, TypeVar
 
+from luma_sdk.requester import HttpRequester
+
 T = TypeVar("T")
 
 
 class PaginatedList(Generic[T]):
-    def __init__(self, requester, path: str, model_cls: type[T], params: dict | None = None) -> None:
+    def __init__(self, requester: HttpRequester, path: str, model_cls: type[T], params: dict | None = None) -> None:
         self._requester = requester
         self._path = path
         self._model_cls = model_cls
