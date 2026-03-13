@@ -93,13 +93,9 @@ Integration tests replay pre-recorded cassettes — **no network access or API k
 
 ### Re-recording cassettes
 
-Requires a valid `LUMA_API_KEY` in a `.env` file at the project root:
+Contributors should not re-record cassettes. The cassettes are tied to a specific Luma calendar and API key held by the maintainers — re-recording against a different account will produce different data and break the assertions.
 
-```
-LUMA_API_KEY=your_key_here
-```
-
-Cassettes scrub auth headers before saving and are safe to commit.
+Maintainers only: set `LUMA_API_KEY` in a `.env` file and run with `--record-mode=all`. Cassettes scrub auth headers before saving and are safe to commit.
 
 ---
 
