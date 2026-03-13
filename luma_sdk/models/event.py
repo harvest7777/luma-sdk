@@ -42,8 +42,8 @@ class Event:
         self.timezone: Optional[str] = event.get("timezone")
         self.visibility: Optional[str] = event.get("visibility")
         self.geo_address: Optional[GeoAddress] = (
-            GeoAddress._from_dict(data["geo_address_json"])
-            if data.get("geo_address_json")
+            GeoAddress._from_dict(event["geo_address_json"])
+            if event.get("geo_address_json")
             else None
         )
         self.tags: list[str] = data.get("tags") or []
