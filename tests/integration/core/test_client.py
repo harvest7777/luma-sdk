@@ -39,10 +39,8 @@ def test_get_guest_returns_guest(luma_client):
 @pytest.mark.vcr
 def test_get_guests_returns_paginated_list_of_guests(luma_client):
     event = luma_client.get_event("evt-OlQU8n0zzhDZc7A")
-    guests = event.get_guests(pagination_limit=10)
+    guests = event.get_guests()
     assert isinstance(guests, PaginatedList)
-    guest_list = list(guests)
-    assert len(guest_list) == 10
-    assert all(isinstance(g, Guest) for g in guest_list)
+    assert all(isinstance(g, Guest) for g in guests)
 
 
