@@ -8,6 +8,10 @@ from luma_sdk import *
 @pytest.fixture(scope="session")
 def luma_client():
     return LumaClient(api_key=os.getenv("LUMA_API_KEY"))
+
+@pytest.fixture(scope="session")
+def test_luma_client():
+    return LumaClient(api_key=os.getenv("TEST_LUMA_API_KEY"))
 @pytest.mark.vcr
 def test_get_event_returns_event(luma_client):
     event = luma_client.get_event("evt-eJuh3dgMEiJ2MUj")
@@ -40,6 +44,14 @@ def test_get_guest_returns_guest(luma_client):
 def test_get_guests_returns_paginated_list_of_guests(luma_client):
     event = luma_client.get_event("evt-OlQU8n0zzhDZc7A")
     guests = event.get_guests()
+    assert all(isinstance(g, Guest) for g in guests)
+
+@pytest.mark.vcr
+def test_add_guests_returns_list_of_guests(test_luma_client):
+    from luma_sdk.models.event import GuestInput
+    event = test_luma_client.get_event("evt-DXHV4IC8LpKP9c3")
+    guests = event.add_guests([GuestInput(email="test@example.com", name="Test User")])
+    assert isinstance(guests, list)
     assert all(isinstance(g, Guest) for g in guests)
 
 
