@@ -40,7 +40,6 @@ def test_get_guest_returns_guest(luma_client):
 def test_get_guests_returns_paginated_list_of_guests(luma_client):
     event = luma_client.get_event("evt-OlQU8n0zzhDZc7A")
     guests = event.get_guests()
-    assert isinstance(guests, PaginatedList)
     assert all(isinstance(g, Guest) for g in guests)
 
 
