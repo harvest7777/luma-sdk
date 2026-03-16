@@ -5,6 +5,7 @@ from datetime import datetime
 from typing import TYPE_CHECKING, Optional
 
 from luma_sdk.models.base import LumaModel
+from luma_sdk.paginated_list import PaginatedList
 from luma_sdk.requester import HttpRequester
 from luma_sdk.utils.datetime import parse_dt as _parse_dt
 
@@ -57,6 +58,16 @@ class Event(LumaModel):
         from luma_sdk.models.guest import Guest
         data = self._requester.get("/event/get-guest", parameters={"event_id": self.id, "id": guest_id})
         return Guest(data["guest"], self._requester)
+
+    def get_guests(self, **filters) -> "PaginatedList[Guest]":
+        from luma_sdk.models.guest import Guest
+        return PaginatedList(
+            self._requester,
+            "/event/get-guests",
+            Guest,
+            params={"event_api_id": self.id, **filters},
+            entry_key="guest",
+        )
 
     def __repr__(self) -> str:
         return f"<Event id={self.id!r} name={self.name!r}>"
