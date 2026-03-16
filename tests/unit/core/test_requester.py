@@ -83,3 +83,14 @@ def test_timeout_raises_timeout_error():
     req._session = TimeoutSession()
     with pytest.raises(RequestTimeoutError):
         req.get("/events")
+
+def test_post_timeout_raises_timeout_error():
+    req = Requester("https://api.test")
+
+    class TimeoutSession:
+        def request(self, *args, **kwargs):
+            raise requests.exceptions.Timeout()
+
+    req._session = TimeoutSession()
+    with pytest.raises(RequestTimeoutError):
+        req.post("/events")

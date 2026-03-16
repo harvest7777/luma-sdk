@@ -6,10 +6,11 @@ from luma_sdk.exceptions import ApiError, ClientError, ForbiddenError, NotFoundE
 
 class HttpRequester(Protocol):
     def get(self, path: str, parameters: dict | None = None) -> dict | list: ...
+    def post(self, path: str, body: dict | None = None) -> dict | list: ...
 
 
 class Requester:
-    DEFAULT_TIMEOUT = 10
+    DEFAULT_TIMEOUT = 3
 
     def __init__(
         self,
@@ -39,6 +40,7 @@ class Requester:
         verb: str,
         path: str,
         parameters: dict | None = None,
+        body: dict | None = None,
     ) -> tuple[int, dict | list]:
         url = self._construct_url(path)
         try:
@@ -46,6 +48,7 @@ class Requester:
                 method=verb,
                 url=url,
                 params=parameters,
+                json=body,
                 timeout=self._timeout,
             )
         except requests.exceptions.Timeout:
@@ -61,15 +64,23 @@ class Requester:
         :param path: Resource path, e.g. "/event/get". Leading slash optional.
         :param parameters: Query string parameters, e.g. {"id": "evt-123"}.
         """
-        return self._request_json_and_check("GET", path, parameters)
+        return self._request_json_and_check("GET", path, parameters=parameters)
+
+    def post(self, path: str, body: dict | None = None) -> dict | list:
+        """
+        :param path: Resource path, e.g. "/event/add-guests". Leading slash optional.
+        :param body: JSON request body.
+        """
+        return self._request_json_and_check("POST", path, body=body)
 
     def _request_json_and_check(
         self,
         verb: str,
         path: str,
         parameters: dict | None = None,
+        body: dict | None = None,
     ) -> dict | list:
-        status, data = self._request_json(verb, path, parameters)
+        status, data = self._request_json(verb, path, parameters, body)
         self._check(status, data)
         return data
 
