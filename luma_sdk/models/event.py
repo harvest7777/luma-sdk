@@ -61,7 +61,6 @@ class Event(LumaModel):
         approval_status: Optional[Literal["approved", "session", "pending_approval", "invited", "declined", "waitlist"]] = None,
         sort_column: Optional[Literal["name", "email", "created_at", "registered_at", "checked_in_at"]] = None,
         sort_direction: Optional[Literal["asc", "desc", "asc nulls last", "desc nulls last"]] = None,
-        pagination_limit: Optional[int] = None,
     ) -> PaginatedList[Guest]:
         params: dict = {"event_id": self.id}
         if approval_status is not None:
@@ -70,8 +69,6 @@ class Event(LumaModel):
             params["sort_column"] = sort_column
         if sort_direction is not None:
             params["sort_direction"] = sort_direction
-        if pagination_limit is not None:
-            params["pagination_limit"] = pagination_limit
         return PaginatedList(
             self._requester,
             "/event/get-guests",
