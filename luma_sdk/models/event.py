@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import datetime
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Literal, Optional
 
 from luma_sdk.models.base import LumaModel
 from luma_sdk.paginated_list import PaginatedList
@@ -59,13 +59,28 @@ class Event(LumaModel):
         data = self._requester.get("/event/get-guest", parameters={"event_id": self.id, "id": guest_id})
         return Guest(data["guest"], self._requester)
 
-    def get_guests(self, **filters) -> "PaginatedList[Guest]":
+    def get_guests(
+        self,
+        approval_status: Optional[Literal["approved", "session", "pending_approval", "invited", "declined", "waitlist"]] = None,
+        sort_column: Optional[Literal["name", "email", "created_at", "registered_at", "checked_in_at"]] = None,
+        sort_direction: Optional[Literal["asc", "desc", "asc nulls last", "desc nulls last"]] = None,
+        pagination_limit: Optional[int] = None,
+    ) -> "PaginatedList[Guest]":
         from luma_sdk.models.guest import Guest
+        params: dict = {"event_id": self.id}
+        if approval_status is not None:
+            params["approval_status"] = approval_status
+        if sort_column is not None:
+            params["sort_column"] = sort_column
+        if sort_direction is not None:
+            params["sort_direction"] = sort_direction
+        if pagination_limit is not None:
+            params["pagination_limit"] = pagination_limit
         return PaginatedList(
             self._requester,
             "/event/get-guests",
             Guest,
-            params={"event_api_id": self.id, **filters},
+            params=params,
             entry_key="guest",
         )
 
