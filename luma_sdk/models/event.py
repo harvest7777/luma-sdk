@@ -2,15 +2,13 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import datetime
-from typing import TYPE_CHECKING, Literal, Optional
+from typing import Literal, Optional
 
 from luma_sdk.models.base import LumaModel
+from luma_sdk.models.guest import Guest
 from luma_sdk.paginated_list import PaginatedList
 from luma_sdk.requester import HttpRequester
 from luma_sdk.utils.datetime import parse_dt as _parse_dt
-
-if TYPE_CHECKING:
-    from luma_sdk.models.guest import Guest
 
 
 @dataclass
@@ -54,8 +52,7 @@ class Event(LumaModel):
             else None
         )
 
-    def get_guest(self, guest_id: str) -> "Guest":
-        from luma_sdk.models.guest import Guest
+    def get_guest(self, guest_id: str) -> Guest:
         data = self._requester.get("/event/get-guest", parameters={"event_id": self.id, "id": guest_id})
         return Guest(data["guest"], self._requester)
 
@@ -65,8 +62,7 @@ class Event(LumaModel):
         sort_column: Optional[Literal["name", "email", "created_at", "registered_at", "checked_in_at"]] = None,
         sort_direction: Optional[Literal["asc", "desc", "asc nulls last", "desc nulls last"]] = None,
         pagination_limit: Optional[int] = None,
-    ) -> "PaginatedList[Guest]":
-        from luma_sdk.models.guest import Guest
+    ) -> PaginatedList[Guest]:
         params: dict = {"event_id": self.id}
         if approval_status is not None:
             params["approval_status"] = approval_status
