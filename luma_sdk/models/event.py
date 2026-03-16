@@ -12,6 +12,12 @@ from luma_sdk.utils.datetime import parse_dt as _parse_dt
 
 
 @dataclass
+class GuestInput:
+    email: str
+    name: Optional[str] = None
+
+
+@dataclass
 class GeoAddress:
     full_address: Optional[str]
     city: Optional[str]
@@ -77,6 +83,26 @@ class Event(LumaModel):
             params=params,
             entry_key="guest",
         )
+
+    def add_guests(
+        self,
+        guests: list[GuestInput],
+        ticket_ids: Optional[list[str]] = None,
+    ) -> list[Guest]:
+        body: dict = {
+            "event_id": self.id,
+            "guests": [
+                {k: v for k, v in {"email": g.email, "name": g.name}.items() if v is not None}
+                for g in guests
+            ],
+        }
+        if ticket_ids:
+            if len(ticket_ids) == 1:
+                body["ticket"] = ticket_ids[0]
+            else:
+                body["tickets"] = ticket_ids
+        data = self._requester.post("/event/add-guests", body=body)
+        return [Guest(g, self._requester) for g in data["guests"]]
 
     def __repr__(self) -> str:
         return f"<Event id={self.id!r} name={self.name!r}>"
