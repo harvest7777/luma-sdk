@@ -88,9 +88,9 @@ class Event(LumaModel):
         self,
         guests: list[GuestInput],
         ticket_ids: Optional[list[str]] = None,
-    ) -> list[Guest]:
+    ) -> None:
         body: dict = {
-            "event_id": self.id,
+            "event_api_id": self.id,
             "guests": [
                 {k: v for k, v in {"email": g.email, "name": g.name}.items() if v is not None}
                 for g in guests
@@ -101,8 +101,7 @@ class Event(LumaModel):
                 body["ticket"] = ticket_ids[0]
             else:
                 body["tickets"] = ticket_ids
-        data = self._requester.post("/event/add-guests", body=body)
-        return [Guest(g, self._requester) for g in data["guests"]]
+        self._requester.post("/event/add-guests", body=body)
 
     def __repr__(self) -> str:
         return f"<Event id={self.id!r} name={self.name!r}>"

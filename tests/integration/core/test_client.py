@@ -47,11 +47,10 @@ def test_get_guests_returns_paginated_list_of_guests(luma_client):
     assert all(isinstance(g, Guest) for g in guests)
 
 @pytest.mark.vcr
-def test_add_guests_returns_list_of_guests(test_luma_client):
+def test_add_guests_returns_none_on_success(test_luma_client):
     from luma_sdk.models.event import GuestInput
     event = test_luma_client.get_event("evt-DXHV4IC8LpKP9c3")
-    guests = event.add_guests([GuestInput(email="test@example.com", name="Test User")])
-    assert isinstance(guests, list)
-    assert all(isinstance(g, Guest) for g in guests)
+    guest = event.add_guests([GuestInput(email="test@example.com", name="Test User")])
+    assert guest is None
 
 
