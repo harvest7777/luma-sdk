@@ -27,8 +27,8 @@ def test_bad_event_raises_forbidden(luma_client):
         luma_client.get_event("evt-xxxxxxxxxxxxxx")
 
 @pytest.mark.vcr
-def test_get_events_returns_only_event_types(luma_client):
-    events = luma_client.get_events()
+def test_list_events_returns_only_event_types(luma_client):
+    events = luma_client.list_events()
     assert all(isinstance(e, Event) for e in events)
 
 @pytest.mark.vcr
