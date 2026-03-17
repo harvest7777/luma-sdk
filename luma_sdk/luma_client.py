@@ -30,7 +30,6 @@ class LumaClient:
         before: Optional[datetime] = None,
         after: Optional[datetime] = None,
         pagination_cursor: Optional[str] = None,
-        pagination_limit: Optional[int] = None,
         sort_column: Optional[Literal["start_at"]] = None,
         sort_direction: Optional[Literal["asc", "desc", "asc nulls last", "desc nulls last"]] = None,
     ) -> PaginatedList[Event]:
@@ -38,7 +37,6 @@ class LumaClient:
             "before": format_dt(before) if before else None,
             "after": format_dt(after) if after else None,
             "pagination_cursor": pagination_cursor,
-            "pagination_limit": pagination_limit,
             "sort_column": sort_column,
             "sort_direction": sort_direction,
         }.items() if v is not None}
