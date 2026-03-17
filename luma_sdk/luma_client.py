@@ -1,8 +1,10 @@
+from datetime import datetime
 from typing import Literal, Optional
 
 from luma_sdk.models.event import Event
 from luma_sdk.paginated_list import PaginatedList
 from luma_sdk.requester import Requester
+from luma_sdk.utils.datetime import format_dt
 
 
 class LumaClient:
@@ -25,16 +27,16 @@ class LumaClient:
     # These all MUST be top level resources. We are following a RESTful ownership pattern
     def list_events(
         self,
-        before: Optional[str] = None,
-        after: Optional[str] = None,
+        before: Optional[datetime] = None,
+        after: Optional[datetime] = None,
         pagination_cursor: Optional[str] = None,
         pagination_limit: Optional[int] = None,
         sort_column: Optional[Literal["start_at"]] = None,
         sort_direction: Optional[Literal["asc", "desc", "asc nulls last", "desc nulls last"]] = None,
     ) -> PaginatedList[Event]:
         params = {k: v for k, v in {
-            "before": before,
-            "after": after,
+            "before": format_dt(before) if before else None,
+            "after": format_dt(after) if after else None,
             "pagination_cursor": pagination_cursor,
             "pagination_limit": pagination_limit,
             "sort_column": sort_column,
