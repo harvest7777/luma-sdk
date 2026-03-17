@@ -10,7 +10,7 @@ load_dotenv()
 client = LumaClient(os.getenv("LUMA_API_KEY"))
 
 now = datetime.now(timezone.utc)
-upcoming = [e for e in client.get_events() if e.start_at >= now]
+upcoming = list(client.list_events(after=now.isoformat(timespec="milliseconds").replace("+00:00", "Z"), sort_column="start_at", sort_direction="asc"))
 
 print(f"Fetch.ai upcoming events ({len(upcoming)} total):\n")
 for event in upcoming:
