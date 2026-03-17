@@ -25,7 +25,7 @@ event = client.get_event("evt-abc123")
 print(event.name, event.start_at)
 
 # iterate over all events (pages automatically)
-for event in client.get_events():
+for event in client.list_events():
     print(event.name, event.url)
 
 # fetch a guest on an event
