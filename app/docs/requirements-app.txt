@@ -2,3 +2,5 @@ python-dotenv
 langgraph
 langchain-openai
 langchain
+uagents
+uagents-core
