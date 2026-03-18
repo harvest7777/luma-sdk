@@ -1,48 +1,123 @@
-# Luma Agent
+# 📅 Luma Events Agent (Agent Chat Protocol)
 
-Fetch.ai agent that answers questions about upcoming Luma events. Ask it what's coming up, get details on a specific event, or ask it to register you for one.
-
----
-
-## Architecture
-
-**One entry point.** All chat traffic flows through `fetchai_agent.py` → `agent.invoke(message)` → reply string. The uAgents layer handles the chat protocol; the LangChain layer handles tool-calling against the Luma API.
-
-| Layer | Purpose |
-|-------|---------|
-| **fetchai_agent.py** | uAgents chat protocol adapter. Receives `ChatMessage`, sends `ChatAcknowledgement`, runs the agent, replies with `ChatMessage`. |
-| **agent.py** | LangChain ReAct agent (LangGraph). Decides which tools to call based on the user's question. Pointed at ASI1. |
-| **tools.py** | Luma API tools: `list_events`, `get_event`. Each tool normalizes SDK objects into plain dicts the LLM can reason over. |
-
-**Flow:** User message via ASI:One → `handle_message` → inject current datetime → `agent.invoke()` → tool calls against Luma API → final reply → `ChatMessage` back to user.
+A conversational agent that connects you to the Fetch.ai Luma calendar. Ask what's coming up, get details on a specific event, and register for one—all through natural chat. Powered by the Luma API and built for the Fetch.ai ecosystem.
 
 ---
 
-## Project layout
+## ✅ What this Agent Can Do
+
+- **Browse upcoming events**
+  - "What events are coming up?"
+  - "Show me events this week"
+  - "Are there any Fetch.ai events in April?"
+
+- **Get event details**
+  - "Tell me more about the hackathon"
+  - "What time does the AI summit start?"
+  - "Where is the next meetup?"
+
+- **Register for an event**
+  - "Register me for the Fetch.ai hackathon"
+  - "Sign me up for that event"
+
+- **Clear, formatted replies**
+  - Event listings with name, date, and location
+  - Full event details on request
+  - Registration confirmation when you're ready to sign up
+
+---
+
+## ❌ What this Agent Will Not Do
+
+- Access private or invite-only events not visible on the public Luma calendar
+- Manage existing registrations (cancellations, transfers)
+- Answer non-Luma questions (e.g., general trivia, weather)
+- Support multiple Luma calendars in one conversation
+
+---
+
+## 🗣️ Example Prompts
+
+| Prompt | Why it works |
+| ------ | ------------ |
+| "What's coming up on Luma?" | Browse the full upcoming event list |
+| "Any events this weekend?" | Time-scoped event search |
+| "Tell me about the AI hackathon" | Get details on a specific event |
+| "What time does it start?" | Follow-up question on current event |
+| "Register me for that one" | Kick off the registration flow |
+
+---
+
+## ℹ️ Tips for Best Results
+
+- Ask "what's coming up" first to see the event list before drilling into details
+- Be specific with event names when asking for details (e.g., "Fetch.ai hackathon" over "the hackathon")
+- The agent knows today's date—time-relative questions like "this week" or "next month" work naturally
+- Follow up in the same chat session; the agent holds context across turns
+
+---
+
+## 🎯 Typical Response Format
+
+**Event listing:**
 
 ```
-app/
-  fetchai_agent.py   # uAgents entry point (chat protocol)
-  agent.py           # LangChain ReAct agent + LLM config
-  tools.py           # Luma API tools (@tool decorated)
-  docs/
-    requirements-app.txt
-luma_sdk/            # Luma API client + models (used by tools.py)
+Here are the upcoming events:
+
+1. Fetch.ai Hackathon — Sat Apr 12, 10:00 AM · San Francisco, CA
+2. AI Summit 2025 — Thu Apr 17, 9:00 AM · Online
+3. ...
+```
+
+**Event details:**
+
+```
+Fetch.ai Hackathon
+📅 Saturday, April 12 · 10:00 AM – 6:00 PM PDT
+📍 San Francisco, CA
+🔗 lu.ma/...
+
+Build on the Fetch.ai stack and compete for prizes. Open to all skill levels.
+```
+
+**Registration:**
+
+```
+You're registered for Fetch.ai Hackathon!
+Check your email for a confirmation from Luma.
 ```
 
 ---
 
-## Capabilities
+## 🤝 Use via ASI:One
 
-- **Find upcoming events** — ask "what Luma events are coming up?" and the agent queries the Luma calendar, filters by date, and summarizes what it finds.
-- **Get event details** — ask about a specific event by name or ID to get the full description, location, and timing.
-- **Register for an event** — coming soon.
+Find this agent on ASI:One and start a chat:
+
+```
+What Luma events are happening this week?
+```
+
+```
+Register me for the Fetch.ai hackathon
+```
+
+_(The agent's address is printed to the console when it starts, and published to the Fetch.ai agent directory.)_
 
 ---
 
-## Setup
+## 🔌 How It Works (High-level)
 
-1. **Copy env:** create `app/.env` with the following keys:
+1. Receives your message via the Agent Chat Protocol and acknowledges it
+2. Injects the current date so time-relative questions ("this week", "upcoming") work correctly
+3. Decides what to do—list events, fetch details, or start registration—via a LangChain ReAct agent
+4. Calls the Luma API and formats the results into a readable reply
+5. Sends the reply back to you in the same chat session
+
+---
+
+## 🛠️ Setup
+
+1. **Create `app/.env`** with the following keys:
 
    ```
    LUMA_API_KEY=your-luma-api-key
@@ -54,31 +129,11 @@ luma_sdk/            # Luma API client + models (used by tools.py)
 
    ```bash
    pip install -r app/docs/requirements-app.txt
-   pip install -e .   # installs luma_sdk from the repo root
+   pip install -e .
    ```
 
----
+3. **Run:**
 
-## Usage
-
-**Run the agent:**
-
-```bash
-python app/fetchai_agent.py
-```
-
-The agent registers on the Fetch.ai network and starts listening for chat messages. Find it on [ASI:One](https://asi1.ai) by its published agent address, then start chatting:
-
-> "What Luma events are happening this week?"
-
-> "Tell me more about the Fetch.ai hackathon."
-
----
-
-## Tests
-
-```bash
-pytest tests/
-```
-
-Integration tests use VCR cassettes — no live API calls needed.
+   ```bash
+   python app/fetchai_agent.py
+   ```
