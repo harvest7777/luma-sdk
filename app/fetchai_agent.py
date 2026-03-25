@@ -17,7 +17,7 @@ from uagents_core.contrib.protocols.chat import (
     chat_protocol_spec,
 )
 
-from agent import agent as luma_agent
+from agent import AGENT as luma_agent
 
 load_dotenv()
 

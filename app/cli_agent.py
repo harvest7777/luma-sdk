@@ -1,4 +1,4 @@
-from app.agent import agent
+from app.agent import AGENT
 
 print("=" * 40)
 print("  Luma Agent CLI")
@@ -9,7 +9,7 @@ print()
 while True:
     try:
         user_message = input("You: ")
-        res = agent.invoke({
+        res = AGENT.invoke({
             "messages": [{"role": "user", "content": f"{user_message}."}]
         })
         ai_message = res["messages"][-1].content
