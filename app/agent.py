@@ -48,10 +48,8 @@ AGENT = create_agent(
         SummarizationMiddleware(
             model=llm,
             summary_prompt=SUMMARY_PROMPT,
-            # Trigger summarization when 8192 tokens are accumulated
             trigger=("tokens", 8192),
-            # Keep the most recent 30% of messages in full
-            keep=("fraction", 0.3),
+            keep=("tokens", 4096),
             # No additional trimming before summarization
             trim_tokens_to_summarize=None,
         ),
