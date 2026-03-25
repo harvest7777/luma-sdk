@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
 from langchain.agents import create_agent
 from langgraph.checkpoint.memory import MemorySaver
+from langchain.agents.middleware import SummarizationMiddleware
 
 from tools import get_event, list_events, register_for_event
 
@@ -29,4 +30,30 @@ Guidelines:
 - Keep responses concise and friendly.
 """
 
-AGENT = create_agent(llm, tools=[list_events, get_event, register_for_event], system_prompt=SYSTEM_PROMPT, checkpointer=MemorySaver())
+SUMMARY_PROMPT = """
+Summarize the main thrust of this conversation. What have the human and assistant discussed so far? Focus on key facts and requests.
+
+<messages>
+Messages to summarize:
+{messages}
+</messages>
+"""
+
+AGENT = create_agent(
+    llm,
+    tools=[list_events, get_event, register_for_event],
+    system_prompt=SYSTEM_PROMPT,
+    checkpointer=MemorySaver(),
+    middleware=[
+        SummarizationMiddleware(
+            model=llm,
+            summary_prompt=SUMMARY_PROMPT,
+            # Trigger summarization when 8192 tokens are accumulated
+            trigger=("tokens", 8192),
+            # Keep the most recent 30% of messages in full
+            keep=("fraction", 0.3),
+            # No additional trimming before summarization
+            trim_tokens_to_summarize=None,
+        ),
+    ],
+)
