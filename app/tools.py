@@ -1,4 +1,5 @@
 import os
+import time
 from datetime import datetime, timezone
 from typing import Literal, Optional
 
@@ -71,13 +72,22 @@ def get_event(event_id: str) -> dict:
     return normalize(_luma.get_event(event_id))
 
 @tool
-def register_for_event(event_id: str, email: str, name:str | None = None) -> dict:
+def register_for_event(event_id: str, email: str, name: str | None = None) -> dict:
     """Register a guest's email and name (optional) to an event ID.
 
     Args:
         event_id: The Luma event API ID (e.g. evt-abc123).
     """
-    _luma.get_event(event_id).add_guests([GuestInput(email, name)])
-    return normalize(_luma.get_event(event_id).get_guest(email))
+    event = _luma.get_event(event_id)
+    event.add_guests([GuestInput(email, name)])
+
+    last_exc: Exception | None = None
+    for attempt in range(3):
+        try:
+            return normalize(event.get_guest(email))
+        except Exception as exc:
+            last_exc = exc
+            time.sleep(1)
+    raise last_exc
 
 
