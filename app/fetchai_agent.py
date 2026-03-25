@@ -65,7 +65,7 @@ async def handle_message(ctx: Context, sender: str, msg: ChatMessage):
     try:
         result = luma_agent.invoke(
             {"messages": [{"role": "user", "content": f"{text} Today is {now}."}]},
-            config={"configurable": {"thread_id": sender}},
+            config={"configurable": {"thread_id": str(ctx.session)}},
         )
         response = result["messages"][-1].content
         ctx.logger.info(response)
