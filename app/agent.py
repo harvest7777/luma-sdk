@@ -3,6 +3,7 @@ import os
 from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
 from langchain.agents import create_agent
+from langgraph.checkpoint.memory import MemorySaver
 
 from tools import get_event, list_events, register_for_event
 
@@ -28,4 +29,4 @@ Guidelines:
 - Keep responses concise and friendly.
 """
 
-AGENT = create_agent(llm, tools=[list_events, get_event, register_for_event], system_prompt=SYSTEM_PROMPT)
+AGENT = create_agent(llm, tools=[list_events, get_event, register_for_event], system_prompt=SYSTEM_PROMPT, checkpointer=MemorySaver())

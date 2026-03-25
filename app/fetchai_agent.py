@@ -63,9 +63,10 @@ async def handle_message(ctx: Context, sender: str, msg: ChatMessage):
     response = "Unable to answer your question at this time."
     qr_url = None
     try:
-        result = luma_agent.invoke({
-            "messages": [{"role": "user", "content": f"{text} Today is {now}."}]
-        })
+        result = luma_agent.invoke(
+            {"messages": [{"role": "user", "content": f"{text} Today is {now}."}]},
+            config={"configurable": {"thread_id": sender}},
+        )
         response = result["messages"][-1].content
         ctx.logger.info(response)
         qr_url = _extract_qr_url(result["messages"])
