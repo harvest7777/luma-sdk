@@ -67,7 +67,7 @@ async def handle_message(ctx: Context, sender: str, msg: ChatMessage):
             "messages": [{"role": "user", "content": f"{text} Today is {now}."}]
         })
         response = result["messages"][-1].content
-        ctx.logger.info(responsssss)
+        ctx.logger.info(response)
         qr_url = _extract_qr_url(result["messages"])
     except Exception:
         ctx.logger.exception("Error running Luma agent")
