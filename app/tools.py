@@ -6,10 +6,11 @@ from dotenv import load_dotenv
 from langchain_core.tools import tool
 
 from luma_sdk.luma_client import LumaClient
+from luma_sdk.models.event import GuestInput
 
 load_dotenv()
 
-_luma = LumaClient(os.getenv("LUMA_API_KEY"))
+_luma = LumaClient(os.getenv("TEST_LUMA_API_KEY"))
 
 
 def normalize(obj):
@@ -62,3 +63,15 @@ def get_event(event_id: str) -> dict:
         event_id: The Luma event API ID (e.g. evt-abc123).
     """
     return normalize(_luma.get_event(event_id))
+
+@tool
+def register_for_event(event_id: str, email: str, name:str | None = None) -> dict:
+    """Register a guest's email and name (optional) to an event ID.
+
+    Args:
+        event_id: The Luma event API ID (e.g. evt-abc123).
+    """
+    _luma.get_event(event_id).add_guests([GuestInput(email, name)])
+    return normalize(_luma.get_event(event_id).get_guest(email))
+
+

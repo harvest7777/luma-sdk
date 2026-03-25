@@ -1,11 +1,10 @@
 import os
-from datetime import datetime, timezone
 
 from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
 from langchain.agents import create_agent
 
-from tools import get_event, list_events
+from tools import get_event, list_events, register_for_event
 
 load_dotenv()
 
@@ -15,11 +14,4 @@ llm = ChatOpenAI(
     model="asi1",
 )
 
-agent = create_agent(llm, tools=[list_events, get_event])
-
-if __name__ == "__main__":
-    now = datetime.now(timezone.utc).isoformat()
-    result = agent.invoke({
-        "messages": [{"role": "user", "content": f"What are the next 5 upcoming Luma events? Today is {now}."}]
-    })
-    print(result["messages"][-1].content)
+agent = create_agent(llm, tools=[list_events, get_event, register_for_event])
