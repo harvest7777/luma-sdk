@@ -1,5 +1,5 @@
 import os
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Literal, Optional
 
 from dotenv import load_dotenv
@@ -28,6 +28,12 @@ def normalize(obj):
     if hasattr(obj, "__dict__"):
         return normalize({k: v for k, v in vars(obj).items() if not k.startswith("_")})
     return str(obj)
+
+
+@tool
+def get_current_date() -> str:
+    """Returns the current UTC date and time in ISO 8601 format."""
+    return datetime.now(timezone.utc).isoformat()
 
 
 @tool

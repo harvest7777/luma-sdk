@@ -1,7 +1,7 @@
 import json
 import os
 import urllib.parse
-from datetime import datetime, timezone
+from datetime import datetime
 from uuid import uuid4
 
 from dotenv import load_dotenv
@@ -59,12 +59,11 @@ async def handle_message(ctx: Context, sender: str, msg: ChatMessage):
         if isinstance(item, TextContent):
             text += item.text
 
-    now = datetime.now(timezone.utc).isoformat()
     response = "Unable to answer your question at this time."
     qr_url = None
     try:
         result = luma_agent.invoke(
-            {"messages": [{"role": "user", "content": f"{text} Today is {now}."}]},
+            {"messages": [{"role": "user", "content": text}]},
             config={"configurable": {"thread_id": str(ctx.session)}},
         )
         response = result["messages"][-1].content

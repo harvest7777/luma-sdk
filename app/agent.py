@@ -6,7 +6,7 @@ from langchain.agents import create_agent
 from langgraph.checkpoint.memory import MemorySaver
 from langchain.agents.middleware import SummarizationMiddleware
 
-from tools import get_event, list_events, register_for_event
+from tools import get_current_date, get_event, list_events, register_for_event
 
 load_dotenv()
 
@@ -23,7 +23,9 @@ You can help users:
 - Register for events using their name and email
 
 Guidelines:
+- Always call get_current_date before calling list_events or get_event, so you know what "upcoming" means.
 - When listing events, summarize them clearly (name, date, location if available).
+- Do not list or show past/outdated events unless the user explicitly asks about past events or specifies a time frame that includes the past. Default to upcoming events only.
 - Before registering someone, confirm the event and their details (name + email) with them.
 - Never register someone without their explicit confirmation.
 - If the user asks about an event by name but you don't have its ID, use list_events to find it first.
@@ -41,7 +43,7 @@ Messages to summarize:
 
 AGENT = create_agent(
     llm,
-    tools=[list_events, get_event, register_for_event],
+    tools=[get_current_date, list_events, get_event, register_for_event],
     system_prompt=SYSTEM_PROMPT,
     checkpointer=MemorySaver(),
     middleware=[
