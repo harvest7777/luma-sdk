@@ -4,3 +4,4 @@ langchain-openai
 langchain
 uagents
 uagents-core
+langsmith
