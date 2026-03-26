@@ -24,8 +24,12 @@ class ForbiddenError(ApiError):
     """Raised on 403."""
 
 
+class RateLimitError(ApiError):
+    """Raised on 429 Too Many Requests."""
+
+
 class ClientError(ApiError):
-    """Raised on 4xx errors other than 403 and 404."""
+    """Raised on 4xx errors other than 403, 404, and 429."""
 
 
 class ServerError(ApiError):

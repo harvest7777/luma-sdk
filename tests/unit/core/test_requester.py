@@ -1,7 +1,7 @@
 import pytest
 import requests
 from luma_sdk.requester import Requester
-from luma_sdk.exceptions import ClientError, ForbiddenError, NotFoundError, ServerError, RequestTimeoutError
+from luma_sdk.exceptions import ClientError, ForbiddenError, NotFoundError, RateLimitError, ServerError, RequestTimeoutError
 
 
 def test_requester_init():
@@ -61,6 +61,19 @@ def test_check_404_raises_not_found():
 def test_check_403_raises_forbidden():
     with pytest.raises(ForbiddenError):
         Requester._check(403, {})
+
+
+def test_check_429_raises_rate_limit_error():
+    with pytest.raises(RateLimitError):
+        Requester._check(429, {})
+
+
+def test_check_429_does_not_raise_client_error():
+    with pytest.raises(RateLimitError):
+        try:
+            Requester._check(429, {})
+        except ClientError:
+            pytest.fail("429 should raise RateLimitError, not ClientError")
 
 
 def test_check_4xx_raises_client_error():

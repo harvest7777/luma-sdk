@@ -1,7 +1,7 @@
 import requests
 from typing import Protocol
 
-from luma_sdk.exceptions import ApiError, ClientError, ForbiddenError, NotFoundError, ServerError, RequestTimeoutError
+from luma_sdk.exceptions import ApiError, ClientError, ForbiddenError, NotFoundError, RateLimitError, ServerError, RequestTimeoutError
 
 
 class HttpRequester(Protocol):
@@ -90,6 +90,8 @@ class Requester:
             raise NotFoundError(status, data)
         if status == 403:
             raise ForbiddenError(status, data)
+        if status == 429:
+            raise RateLimitError(status, data)
         if 400 <= status < 500:
             raise ClientError(status, data)
         if status >= 500:
