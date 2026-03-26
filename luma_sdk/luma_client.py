@@ -1,6 +1,7 @@
 from datetime import datetime
 from typing import Literal, Optional
 
+from luma_sdk.exceptions import EventNotFoundError, NotFoundError
 from luma_sdk.models.event import Event
 from luma_sdk.paginated_list import PaginatedList
 from luma_sdk.requester import Requester
@@ -43,5 +44,8 @@ class LumaClient:
         return PaginatedList(self._requester, "/calendar/list-events", Event, params=params, entry_key="event")
 
     def get_event(self, event_id: str) -> Event:
-        data = self._requester.get("/event/get", parameters={"id": event_id})
+        try:
+            data = self._requester.get("/event/get", parameters={"id": event_id})
+        except NotFoundError:
+            raise EventNotFoundError(404, f"Event '{event_id}' not found.")
         return Event(data["event"], self._requester)

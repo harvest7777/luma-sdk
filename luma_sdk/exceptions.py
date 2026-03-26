@@ -12,6 +12,14 @@ class NotFoundError(ApiError):
     """Raised on 404."""
 
 
+class EventNotFoundError(NotFoundError):
+    """Raised when a specific event cannot be found."""
+
+
+class GuestNotFoundError(NotFoundError):
+    """Raised when a specific guest cannot be found."""
+
+
 class ForbiddenError(ApiError):
     """Raised on 403."""
 

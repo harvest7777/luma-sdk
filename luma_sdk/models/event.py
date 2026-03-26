@@ -4,6 +4,7 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Literal, Optional
 
+from luma_sdk.exceptions import GuestNotFoundError, NotFoundError
 from luma_sdk.models.base import LumaModel
 from luma_sdk.models.guest import Guest
 from luma_sdk.paginated_list import PaginatedList
@@ -59,7 +60,10 @@ class Event(LumaModel):
         )
 
     def get_guest(self, guest_id: str) -> Guest:
-        data = self._requester.get("/event/get-guest", parameters={"event_id": self.id, "id": guest_id})
+        try:
+            data = self._requester.get("/event/get-guest", parameters={"event_id": self.id, "id": guest_id})
+        except NotFoundError:
+            raise GuestNotFoundError(404, f"Guest '{guest_id}' not found on event '{self.id}'.")
         return Guest(data["guest"], self._requester)
 
     def get_guests(
