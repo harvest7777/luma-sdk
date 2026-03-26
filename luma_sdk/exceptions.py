@@ -1,3 +1,7 @@
+class TransientError(Exception):
+    """Marker base class for errors that are safe to retry."""
+
+
 class ApiError(Exception):
     def __init__(self, status: int, data: object = None) -> None:
         self.status = status
@@ -24,7 +28,7 @@ class ForbiddenError(ApiError):
     """Raised on 403."""
 
 
-class RateLimitError(ApiError):
+class RateLimitError(TransientError, ApiError):
     """Raised on 429 Too Many Requests."""
 
 
@@ -32,9 +36,13 @@ class ClientError(ApiError):
     """Raised on 4xx errors other than 403, 404, and 429."""
 
 
-class ServerError(ApiError):
+class ServerError(TransientError, ApiError):
     """Raised on 5xx errors."""
 
 
-class RequestTimeoutError(Exception):
+class RequestTimeoutError(TransientError):
     """Raised when a request times out."""
+
+
+class NetworkError(TransientError):
+    """Raised when a network-level connection error occurs."""

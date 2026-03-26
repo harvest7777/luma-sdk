@@ -1,7 +1,7 @@
 import requests
 from typing import Protocol
 
-from luma_sdk.exceptions import ApiError, ClientError, ForbiddenError, NotFoundError, RateLimitError, ServerError, RequestTimeoutError
+from luma_sdk.exceptions import ApiError, ClientError, ForbiddenError, NetworkError, NotFoundError, RateLimitError, ServerError, RequestTimeoutError
 
 
 class HttpRequester(Protocol):
@@ -53,6 +53,8 @@ class Requester:
             )
         except requests.exceptions.Timeout:
             raise RequestTimeoutError()
+        except requests.exceptions.ConnectionError:
+            raise NetworkError()
         try:
             data = response.json()
         except ValueError:
