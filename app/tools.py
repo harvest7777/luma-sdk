@@ -8,6 +8,7 @@ from langchain_core.tools import tool
 
 from luma_sdk.luma_client import LumaClient
 from luma_sdk.models.event import GuestInput
+from luma_sdk.exceptions import TransientError
 
 load_dotenv()
 
@@ -81,11 +82,11 @@ def register_for_event(event_id: str, email: str, name: str | None = None) -> di
     event = _luma.get_event(event_id)
     event.add_guests([GuestInput(email, name)])
 
-    last_exc: Exception | None = None
+    last_exc: TransientError | None = None
     for attempt in range(3):
         try:
             return normalize(event.get_guest(email))
-        except Exception as exc:
+        except TransientError as exc:
             last_exc = exc
             time.sleep(1)
     raise last_exc
