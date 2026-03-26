@@ -5,3 +5,4 @@ langchain
 uagents
 uagents-core
 langsmith
+tenacity
