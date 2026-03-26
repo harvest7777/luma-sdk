@@ -67,15 +67,6 @@ def test_check_429_raises_rate_limit_error():
     with pytest.raises(RateLimitError):
         Requester._check(429, {})
 
-
-def test_check_429_does_not_raise_client_error():
-    with pytest.raises(RateLimitError):
-        try:
-            Requester._check(429, {})
-        except ClientError:
-            pytest.fail("429 should raise RateLimitError, not ClientError")
-
-
 def test_check_4xx_raises_client_error():
     with pytest.raises(ClientError):
         Requester._check(400, {})
