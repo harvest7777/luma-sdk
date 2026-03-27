@@ -1,6 +1,6 @@
 import argparse
 import uuid
-from app.agent import AGENT
+from agent import AGENT
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--resume", metavar="THREAD_ID", help="Resume a previous session")
