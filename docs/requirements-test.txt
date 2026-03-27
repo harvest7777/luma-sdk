@@ -1,5 +1,0 @@
--r requirements.txt
-
-pytest>=8.4.2
-pytest-recording>=0.13.4
-vcrpy>=8.1.1
