@@ -1,7 +1,7 @@
 import pytest
 import requests
-from luma_sdk.requester import Requester
-from luma_sdk.exceptions import ClientError, ForbiddenError, NotFoundError, RateLimitError, ServerError, RequestTimeoutError
+from luma_sdk.sdk_models.requester import Requester
+from luma_sdk.sdk_models.exceptions import ClientError, ForbiddenError, NotFoundError, RateLimitError, ServerError, RequestTimeoutError
 
 
 def test_requester_init():

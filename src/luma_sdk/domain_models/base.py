@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from abc import ABC, abstractmethod
 
-from luma_sdk.requester import HttpRequester
+from luma_sdk.sdk_models.requester import HttpRequester
 
 
 class LumaModel(ABC):

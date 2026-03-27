@@ -1,7 +1,7 @@
 import requests
 from typing import Protocol
 
-from luma_sdk.exceptions import ApiError, ClientError, ForbiddenError, NetworkError, NotFoundError, RateLimitError, ServerError, RequestTimeoutError
+from luma_sdk.sdk_models.exceptions import ClientError, ForbiddenError, NetworkError, NotFoundError, RateLimitError, ServerError, RequestTimeoutError
 
 
 class HttpRequester(Protocol):

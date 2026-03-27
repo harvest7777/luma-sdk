@@ -4,11 +4,11 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Literal, Optional
 
-from luma_sdk.exceptions import GuestNotFoundError, NotFoundError
+from luma_sdk.sdk_models.exceptions import GuestNotFoundError, NotFoundError
 from luma_sdk.domain_models.base import LumaModel
 from luma_sdk.domain_models.guest import Guest
-from luma_sdk.paginated_list import PaginatedList
-from luma_sdk.requester import HttpRequester
+from luma_sdk.sdk_models.paginated_list import PaginatedList
+from luma_sdk.sdk_models.requester import HttpRequester
 from luma_sdk.utils.datetime import parse_dt as _parse_dt
 
 

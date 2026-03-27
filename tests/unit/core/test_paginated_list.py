@@ -1,5 +1,5 @@
 from luma_sdk.domain_models.base import LumaModel
-from luma_sdk.paginated_list import PaginatedList
+from luma_sdk.sdk_models.paginated_list import PaginatedList
 
 
 class FakeModel(LumaModel):

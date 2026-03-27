@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 from langchain_core.tools import tool
 from tenacity import retry, retry_if_exception_type, stop_after_attempt, wait_exponential, wait_random
 
-from luma_sdk.exceptions import (
+from luma_sdk.sdk_models.exceptions import (
     ApiError,
     ClientError,
     EventNotFoundError,
