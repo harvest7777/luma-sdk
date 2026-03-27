@@ -1,7 +1,7 @@
 import json
 import os
 import urllib.parse
-from datetime import datetime
+from datetime import datetime, timezone
 from uuid import uuid4
 
 from dotenv import load_dotenv
@@ -67,7 +67,6 @@ async def handle_message(ctx: Context, sender: str, msg: ChatMessage):
             config={"configurable": {"thread_id": str(ctx.session)}},
         )
         response = result["messages"][-1].content
-        ctx.logger.info(response)
         qr_url = _extract_qr_url(result["messages"])
     except Exception:
         ctx.logger.exception("Error running Luma agent")
