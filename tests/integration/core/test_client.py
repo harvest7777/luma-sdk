@@ -48,7 +48,7 @@ def test_get_guests_returns_paginated_list_of_guests(luma_client):
 
 @pytest.mark.vcr
 def test_add_guests_returns_none_on_success(test_luma_client):
-    from luma_sdk.models.event import GuestInput
+    from luma_sdk.domain_models.event import GuestInput
     event = test_luma_client.get_event("evt-DXHV4IC8LpKP9c3")
     guest = event.add_guests([GuestInput(email="test@example.com", name="Test User")])
     assert guest is None

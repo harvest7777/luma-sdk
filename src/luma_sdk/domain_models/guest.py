@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Optional
 
-from luma_sdk.models.base import LumaModel
+from luma_sdk.domain_models.base import LumaModel
 from luma_sdk.requester import HttpRequester
 from luma_sdk.utils.datetime import parse_dt as _parse_dt
 

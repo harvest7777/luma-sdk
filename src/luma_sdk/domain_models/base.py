@@ -6,7 +6,7 @@ from luma_sdk.requester import HttpRequester
 
 
 class LumaModel(ABC):
-    """Base class for all Luma API resource models.
+    """Base class for all Luma API resource domain_models.
 
     Guarantees that every model can be constructed from a raw API response dict
     and an HTTP requester, and that it has a human-readable representation.

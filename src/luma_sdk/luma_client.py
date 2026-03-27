@@ -2,7 +2,7 @@ from datetime import datetime
 from typing import Literal, Optional
 
 from luma_sdk.exceptions import EventNotFoundError, NotFoundError
-from luma_sdk.models.event import Event
+from luma_sdk.domain_models.event import Event
 from luma_sdk.paginated_list import PaginatedList
 from luma_sdk.requester import Requester
 from luma_sdk.utils.datetime import format_dt

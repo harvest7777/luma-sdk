@@ -1,4 +1,4 @@
-from luma_sdk.models.base import LumaModel
+from luma_sdk.domain_models.base import LumaModel
 from luma_sdk.paginated_list import PaginatedList
 
 

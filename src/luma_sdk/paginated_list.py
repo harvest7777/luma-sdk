@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Generic, Iterator, TypeVar
 
-from luma_sdk.models.base import LumaModel
+from luma_sdk.domain_models.base import LumaModel
 from luma_sdk.requester import HttpRequester
 
 T = TypeVar("T", bound=LumaModel)
