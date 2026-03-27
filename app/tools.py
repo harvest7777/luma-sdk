@@ -35,15 +35,14 @@ class ToolError:
         return {"error": self.message, "type": self.type}
 
 
-_retry_transient_call = retry(
+_retry_transient = retry(
     retry=retry_if_exception_type(TransientError),
     stop=stop_after_attempt(3),
-    wait=wait_exponential(multiplier=1, min=1, max=8) + wait_random(0, 0.5),
-    reraise=True,
+    wait=wait_exponential(multiplier=1, min=1, max=8) + wait_random(0, 0.5)
 )
 
 
-def normalize(obj):
+def _normalize(obj):
     """Convert SDK objects into JSON-serializable primitives."""
     if obj is None:
         return None
@@ -52,17 +51,17 @@ def normalize(obj):
     if isinstance(obj, datetime):
         return obj.isoformat()
     if isinstance(obj, dict):
-        return {k: normalize(v) for k, v in obj.items()}
+        return {k: _normalize(v) for k, v in obj.items()}
     if isinstance(obj, list):
-        return [normalize(v) for v in obj]
+        return [_normalize(v) for v in obj]
     if hasattr(obj, "__dict__"):
-        return normalize({k: v for k, v in vars(obj).items() if not k.startswith("_")})
+        return _normalize({k: v for k, v in vars(obj).items() if not k.startswith("_")})
     return str(obj)
 
 
 def _tool_error_from_exc(exc: Exception) -> ToolError:
     if isinstance(exc, ForbiddenError):
-        return ToolError("Access denied. Check your Luma API key.", "forbidden")
+        return ToolError("Access denied.", "forbidden")
     if isinstance(exc, TransientError):
         return ToolError(f"Request failed: {exc}, retrying", "transient_error")
     if isinstance(exc, (ClientError, ApiError)):
@@ -97,16 +96,19 @@ def list_events(
     except ValueError as e:
         return ToolError(f"Invalid date format: {e}. Use ISO 8601 (e.g. 2025-01-01T00:00:00).", "input_error").to_dict()
 
-    try:
-        events = _retry_transient_call(lambda: list(_luma.list_events(
+    @_retry_transient
+    def _fetch():
+        return list(_luma.list_events(
             after=after_dt,
             before=before_dt,
             sort_column="start_at",
             sort_direction=sort_direction,
             pagination_cursor=pagination_cursor,
-        )))
-        return [normalize(e) for e in events]
-    except Exception as exc:
+        ))
+
+    try:
+        return [_normalize(e) for e in _fetch()]
+    except (ApiError, TransientError) as exc:
         return _tool_error_from_exc(exc).to_dict()
 
 
@@ -120,11 +122,15 @@ def get_event(event_id: str) -> dict:
     if not event_id or not event_id.strip():
         return ToolError("event_id is required.", "input_error").to_dict()
 
+    @_retry_transient
+    def _fetch():
+        return _luma.get_event(event_id)
+
     try:
-        return normalize(_retry_transient_call(lambda: _luma.get_event(event_id)))
+        return _normalize(_fetch())
     except EventNotFoundError:
         return ToolError(f"Event '{event_id}' not found.", "not_found").to_dict()
-    except Exception as exc:
+    except (ApiError, TransientError) as exc:
         return _tool_error_from_exc(exc).to_dict()
 
 
@@ -142,23 +148,33 @@ def register_for_event(event_id: str, email: str, name: str | None = None) -> di
     if not email or not _EMAIL_RE.match(email):
         return ToolError(f"Invalid email address: {email!r}.", "input_error").to_dict()
 
+    @_retry_transient
+    def _get_event():
+        return _luma.get_event(event_id)
+
+    @_retry_transient
+    def _add_guest(event):
+        event.add_guests([GuestInput(email, name)])
+
+    @_retry_transient
+    def _get_guest(event):
+        return event.get_guest(email)
+
     try:
-        event = _retry_transient_call(lambda: _luma.get_event(event_id))
+        event = _get_event()
     except EventNotFoundError:
         return ToolError(f"Event '{event_id}' not found.", "not_found").to_dict()
-    except Exception as exc:
+    except (ApiError, TransientError) as exc:
         return _tool_error_from_exc(exc).to_dict()
 
     try:
-        _retry_transient_call(lambda: event.add_guests([GuestInput(email, name)]))
-    except ForbiddenError:
-        return ToolError("Not allowed to add guests to this event.", "forbidden").to_dict()
-    except Exception as exc:
+        _add_guest(event)
+    except (ApiError, TransientError) as exc:
         return _tool_error_from_exc(exc).to_dict()
 
     try:
-        return normalize(_retry_transient_call(lambda: event.get_guest(email)))
+        return _normalize(_get_guest(event))
     except GuestNotFoundError:
         return ToolError(f"Guest '{email}' was not found after registration.", "not_found").to_dict()
-    except Exception as exc:
+    except (ApiError, TransientError) as exc:
         return _tool_error_from_exc(exc).to_dict()
