@@ -1,0 +1,22 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "luma-sdk"
+version = "0.1.0"
+description = "Minimal Python SDK for the Luma API"
+requires-python = ">=3.11"
+dependencies = [
+    "requests>=2.31.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-recording>=0.13.0",
+    "vcrpy>=6.0.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
