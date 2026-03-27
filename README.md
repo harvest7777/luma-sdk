@@ -99,10 +99,3 @@ Maintainers only: set `LUMA_API_KEY` in a `.env` file and run with `--record-mod
 
 ---
 
-## `app/`
-
-Example script using the SDK. Requires `LUMA_API_KEY` in `.env`.
-
-```bash
-python app/main.py
-```
